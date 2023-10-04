@@ -276,7 +276,7 @@ $(BUILD_DIR)/rom.bin: $(BANK_BINS)
 clean:
 	rm -f $(GIT_SIGNATURE)
 	rm -rf $(BUILD_DIR)
-	$(MAKE) -C codex clean
+	"$(MAKE)" -C codex clean
 
 $(GIT_SIGNATURE): FORCE
 	@mkdir -p $(BUILD_DIR)
@@ -338,7 +338,7 @@ $(BUILD_DIR)/charset.bin: $(CHARSET_OBJS) $(CHARSET_DEPS) $(CFG_DIR)/charset-x16
 
 # Bank 7 : CodeX
 $(BUILD_DIR)/codex.bin: $(CFG_DIR)/codex-x16.cfg
-	$(MAKE) -C codex
+	"$(MAKE)" -C codex
 
 # Bank 8 : Graphics
 $(BUILD_DIR)/graph.bin: $(GRAPH_OBJS) $(KERNAL_DEPS) $(CFG_DIR)/graph.cfg
