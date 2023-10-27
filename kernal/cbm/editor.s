@@ -284,7 +284,7 @@ loop3
 	lda shflag      ;Clear 40/80 key bit
 	and #(255-MODIFIER_4080)
 	sta shflag
-	
+
 	and #MODIFIER_SHIFT
 	bne scrpnc
 	jsr screen_toggle_default_nvram

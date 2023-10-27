@@ -100,7 +100,7 @@ filename_char_ucs2_to_internal:
 	; but not in CMDR-DOS
 	cpx #$2c ; U002C ','
 	beq @unsupported
-	
+
 	; codes where ISO-8859-1 == ISO-8859-15
 	txa
 	rts

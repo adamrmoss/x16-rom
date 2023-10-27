@@ -25,16 +25,16 @@
 	.macro charOutA
 	jsr    vera_out_a
 	.endmacro
-	
+
 	.macro vgotoXY col, row
 	ldx    #col
 	ldy    #row
 	jsr    vera_goto_xy
 	.endmacro
-	
+
 	.macro vgoto
 	jsr    vera_goto
 	.endmacro
-	
+
 	.endif
-	
+

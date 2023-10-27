@@ -7,7 +7,7 @@
 
 	.psc02                    ; Enable 65c02 instructions
 	.feature labels_without_colons
-	
+
 ;;
 ;; Converting a petscii code to C64 screen codes. 
 ;; The macro should not be used willy-nilly. 

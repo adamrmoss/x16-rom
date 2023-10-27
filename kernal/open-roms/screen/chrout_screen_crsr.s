@@ -37,7 +37,7 @@ chrout_screen_CRSR_RIGHT:
 	iny
 	cpy llen
 	beq_16 screen_advance_to_next_line
-	
+
 l8:
 	sty PNTR
 	bpl chrout_screen_CRSR_done        ; branch always

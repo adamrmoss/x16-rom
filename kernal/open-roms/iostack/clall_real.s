@@ -33,6 +33,6 @@ clall_real:
 
 	; 'C64 Programmers Reference Guide', page 281, claims it calls CLRCHN too
 	jsr CLRCHN
-	
+
 	; Not sure whether original Kernal does so, but it seems sane to also clear possible errors
 	jmp kernalstatus_reset

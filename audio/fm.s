@@ -732,7 +732,7 @@ i2:
 	bpl i2
 
 	; reset lfo
-	
+
 	ldx #$01 ; OPM
 	lda ym_chip_type
 	cmp #$01
@@ -767,7 +767,7 @@ i3b:
 	lda ym_chip_type
 	cmp #$01
 	bne :+
-	ldx #$09 ; OPP	
+	ldx #$09 ; OPP
 :	lda #$00
 	jsr ym_write
 abort:

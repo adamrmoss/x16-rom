@@ -4,7 +4,7 @@
 ;;; Copyright 2020 Michael J. Allison
 ;;; License, 2-clause BSD, see license.txt in source package.
 ;;; 
-	
+
 	.ifndef __BANK_ASSY_VARS__
 	__BANK_ASSY_VARS__=1
 

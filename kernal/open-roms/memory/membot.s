@@ -10,7 +10,7 @@
 MEMBOT:
 
 	bcc membot_set
-	
+
 	ldy MEMSTR+1
 	ldx MEMSTR+0
 
@@ -20,5 +20,5 @@ membot_set:
 
 	sty MEMSTR+1
 	stx MEMSTR+0
-	
+
 	rts

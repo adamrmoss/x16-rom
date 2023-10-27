@@ -74,7 +74,7 @@
 
 	; shared (for bank mgmt)
 	audio_bank_refcnt: .res 1
-	audio_prev_bank: .res 1	
+	audio_prev_bank: .res 1
 
 	; for chip detection
 	ym_chip_type: .res 1

@@ -668,7 +668,7 @@ copy_do:
 	; restore bank_save
 	pla
 	sta bank_save
-	
+
 	lda #$70
 	rts
 
@@ -685,7 +685,7 @@ copy_do:
 	; restore bank_save
 	pla
 	sta bank_save
-	
+
 	rts
 
 ;---------------------------------------------------------------

@@ -7,7 +7,7 @@
  
 	.psc02                    ; Enable 65c02 instructions
 	.feature labels_without_colons
-	
+
 	.include "bank.inc"
 	.include "bank_assy.inc"
 	.include "bank_assy_vars.inc"
@@ -36,7 +36,7 @@
 	.exportzp COLOR_BLACK, COLOR_WHITE, COLOR_RED, COLOR_CYAN, COLOR_VIOLET
 	.exportzp COLOR_GREEN, COLOR_BLUE, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
 	.exportzp COLOR_LT_RED, COLOR_DK_GREY, COLOR_GREY, COLOR_LT_GREEN, COLOR_LT_BLUE, COLOR_LT_GREY
-	
+
 	.exportzp COLOR_CDR_BACK_HIGHLIGHT, COLOR_CDR_TEXT_INV, COLOR_CDR_MEM
 	.exportzp COLOR_CDR_ADDR, COLOR_CDR_BYTES, COLOR_CDR_INST, COLOR_CDR_ARGS, COLOR_CDR_LABEL, COLOR_CDR_ERROR
 
@@ -123,7 +123,7 @@
 	COLOR_CDR_ARGS=COLOR_LT_RED
 	COLOR_CDR_LABEL=COLOR_LT_GREEN
 	COLOR_CDR_ERROR=COLOR_WHITE
-	
+
 	     ;; Yellow background
 ;;      COLOR_CDR_BACK=COLOR_YELLOW   | (COLOR_YELLOW << 4)
 ;;      COLOR_CDR_TEXT=COLOR_BLACK    | (COLOR_YELLOW << 4)
@@ -162,7 +162,7 @@ cl_loop
 	lda    SCR_ROW
 	cmp    #60
 	bne    cl_loop
-	
+
 	rts
 
 ;;
@@ -175,7 +175,7 @@ init_screen_variables
 	sta     orig_color
 
 	LoadW   ERR_MSG,$0
-	
+
 	kerjsr  SCREEN
 	stx     screen_width
 	sty     screen_height
@@ -186,7 +186,7 @@ init_screen_variables
 
 	sbc     #(DATA_ROW+2)
 	sta     screen_row_data_count
-	
+
 	;; figure out the last row, just above the prompt area
 	tya                       ; get screen_height
 	sec
@@ -205,7 +205,7 @@ screen_set_fg_color
 	ora     r15L
 	sta     K_TEXT_COLOR
 	rts
-	
+
 ;;
 ;; Read key with prompt
 ;;
@@ -268,7 +268,7 @@ read_string_with_prompt
 	vgoto
 
 	jsr     prtstr               ; Print prompt string
-	
+
 	;; read_string_core needs this later
 	lda     SCR_COL
 	sta     r11H
@@ -302,7 +302,7 @@ read_string_with_continue
 	rts
 
 
-;;	
+;;
 ;; Alternate entry point for read_string, does not clear the buffer.
 ;; Input r1 - Stored content to preload
 ;; 
@@ -313,7 +313,7 @@ read_string_preloaded
 	jsr     prtstr
 	PopW    r2
 	bra     read_string_core
-	
+
 ;;
 ;; read_string
 ;; read a string from the keyboard, if the user presses "escape" the operation is terminated
@@ -336,8 +336,8 @@ read_string
 	stz     input_string
 	lda     SCR_COL
 	sta     r11H
-	
-read_string_core	
+
+read_string_core
 	LoadW   r1,input_string
 
 	;; r12 original color
@@ -369,7 +369,7 @@ rdstring_in
 	lda     input_string_cursor+1
 	bit     #$40
 	bne     rdstring_unflash_cursor
-	
+
 rdstring_flash_cursor
 	ldx     #r13
 	bra     rdstring_flash_output
@@ -384,12 +384,12 @@ rdstring_flash_output
 	lda     #' '
 	bra     rdstring_output
 
-rdstring_existing_char	
+rdstring_existing_char
 	lda     (r1),y
-	
-rdstring_output	
+
+rdstring_output
 	jsr     rdstring_out
-	
+
 	bra     rdstring_in
 
 rdstring_got_one
@@ -400,7 +400,7 @@ rdstring_got_one
 
 	cmp     #DEL
 	beq     @rdstring_del
-	
+
 	cmp     #F8
 	beq     @rdstring_escape
 
@@ -422,10 +422,10 @@ rdstring_got_one
 	lda     input_string_length
 	cmp     r11L
 	bne     @rdstring_no_incr
-	
+
 	inc     input_string_length
-	
-@rdstring_no_incr	
+
+@rdstring_no_incr
 	cpy     #INPUT_LENGTH
 	beq     @rdstring_accept
 
@@ -442,7 +442,7 @@ rdstring_got_one
 	lda     #' '
 	ldx     #r12
 	jsr     rdstring_out
-	
+
 	dec     input_string_length
 	dec     r11L
 
@@ -455,13 +455,13 @@ rdstring_got_one
 	;;  replace colors in case the cursor was in flash state
 	lda     r12L
 	lda     r12H
-	
+
 	ldy     input_string_length
 	lda     #0
 	sta     (r1),y
 	             
 	rts
-	
+
 @rdstring_escape
 	stz     input_string_length
 	sec     
@@ -485,7 +485,7 @@ rdstring_got_one
 	sta     r11L
 @rdstring_right_exit
 	jmp     rdstring_in
-	
+
 ;;
 ;; output character from inside of read_string
 ;; Input A - Character
@@ -495,18 +495,18 @@ rdstring_out
 	pha
 	lda     $00,x
 	sta     K_TEXT_COLOR
-	
+
 	clc
 	lda     r11L
 	adc     r11H
 	sta     SCR_COL
 	vgoto
-	
+
 	pla
 	jsr     petscii_to_scr
 	charOutA
 	rts
-	
+
 ;; 
 ;; rdstring_unflash
 ;; 
@@ -527,19 +527,19 @@ rdstring_unflash
 ;; Input X - Width
 ;;       Y - Height
 ;;       Carry = 1 erase content, = 0 just draw outline
-;;	
+;;
 ;; Clobbers M1 holds width/height
 ;;          M2 holds SCR_COL/ROW   
 ;;          r11L erase flag
 ;;
 draw_box
 	pha
-	
+
 	stz     r11L
 	bcc     @draw_box_no_erase
 	inc     r11L
 
-@draw_box_no_erase	
+@draw_box_no_erase
 	stx     M1L                    ; Save sizes for later
 	sty     M1H
 
@@ -592,7 +592,7 @@ draw_box_center_lines
 	charOutA
 	lda             r11L
 	beq             @draw_box_center_no_erase
-	
+
 	dex             ;; Account for the second vline
 @draw_box_center_loop
 	lda             #CHR_SPACE
@@ -683,7 +683,7 @@ draw_horizontal_line
 	stx     VERA_DATA0
 	dey
 	bne     @draw_horizontal_loop
-	
+
 	ply
 	plx
 	rts
@@ -756,7 +756,7 @@ restore_vera_state
 	ldy          screen_save_plot_y
 	clc                           ; Set XY
 	kerjsr       PLOT
-	
+
 	rts
  
 ;;
@@ -779,7 +779,7 @@ save_user_screen
 	kerjsr    PLOT
 	stx       screen_save_plot_x
 	sty       screen_save_plot_y
-	
+
 ;	LoadW     r0,0
 ;	LoadW     r1,0
 ;	kerjsr    FB_CURSOR_POSITION
@@ -789,10 +789,10 @@ save_user_screen
 	LoadW     r3,save_mover
 
 	jsr       save_restore_user_screen_iter
-	
+
 	popBank
 	rts
-	
+
 	;;
 	;; Iterate over all rows, calling the row mover
 	;;
@@ -801,8 +801,8 @@ save_restore_user_screen_iter
 
 	LoadW     r0,save_screen
 	LoadW     r4,0 ; Row counter
-	
-@save_restore_iter_loop	
+
+@save_restore_iter_loop
 	jsr       save_restore_user_screen_row
 	LoadW     TMP1,$c000
 	SubW      r0,TMP1
@@ -834,7 +834,7 @@ save_restore_user_screen_row
    lda       r1L
 	beq       @sr_user_exit
 	ldy       #0
-@sr_user_tail_loop	
+@sr_user_tail_loop
 	jsr       mover_shim
 	iny
 	cpy       r1L
@@ -847,7 +847,7 @@ save_restore_user_screen_row
 	sta       r0L
 	bcc       :+
 	inc       r0H
-:	
+:
 	rts
 
 	;;
@@ -870,7 +870,7 @@ restore_user_screen
 	switchBankVar bank_scr1
 
 	jsr       save_restore_user_screen_iter
-	
+
 	popBank
 	rts
 
@@ -879,7 +879,7 @@ restore_user_screen
 	;;
 mover_shim
 	jmp       (r3)
-	
+
 save_mover
    lda       VERA_DATA0
    sta       (r0),y
@@ -920,10 +920,10 @@ screen_get_prev_scrollback_address
 	pushBankVar    bank_scrollback
 
 	MoveW          scrollback_ptr,TMP2
-	
-; Manually expanded ifGE macro, to handle immediate argument	
+
+; Manually expanded ifGE macro, to handle immediate argument
 ;	ifGE           TMP2,#scrollback_low_water,screen_fail
-	
+
 	lda				TMP2H
 	cmp				#>scrollback_low_water
 	bcc				:+
@@ -932,30 +932,30 @@ screen_get_prev_scrollback_address
 	cmp				#<scrollback_low_water
 	bcs				screen_fail
 
-:	
+:
 	ldy            #0
 	lda            (TMP2),y
 	sta            r0L
 	iny
 	lda            (TMP2),y
 	sta            r0H
-	
+
 
 ;	AddVW          2,TMP2
 ;  MoveW          TMP2,scrollback_ptr
-	
+
 	lda				TMP2
 	clc
 	adc				#2
 	sta				scrollback_ptr
 	bcc				screen_exit
 	inc				scrollback_ptr+1
-	
+
 screen_exit       ; Common exit for routines
 	popBank
 	clc
 	rts
-	
+
 screen_fail       ; Common exit routines
 	popBank
 	sec
@@ -970,12 +970,12 @@ screen_add_scrollback_address
 	pushBankVar   bank_scrollback
 	            
 	MoveW          scrollback_ptr,TMP2
-	
+
 	; Manually expanded ifGE, with #immediate argument
    ; ifGE           #scrollback_top_ptr,TMP2,@screen_add_roll
-	
+
    ifVGE          scrollback_top_ptr,TMP2,@screen_add_roll
-	
+
 	sec
 	lda            TMP2L
 	sbc            #2
@@ -1020,7 +1020,7 @@ screen_add_scrollback_address
 ;;  prtstr_at_xy
 ;;  Print a petcsii string at X-Y coordinates
 ;;  Input - r1 string to print
-;;          X, Y - screen location for print	
+;;          X, Y - screen location for print
 ;;
 prtstr_at_xy
 	jsr    vera_goto_xy
@@ -1038,12 +1038,12 @@ prtstr_loop
 	beq     prtstr_exit
 	cmp     #CR
 	beq     @prtstr_cr
-	
+
 	jsr    petscii_to_scr
-	
+
 	charOutA
 
-@prtstr_incr	
+@prtstr_incr
 	iny
 	bne     prtstr_loop
 	inc     r1H             ; printed 256 characters, bump ptr, keep going
@@ -1054,7 +1054,7 @@ prtstr_loop
 	inc     SCR_ROW
 	jsr     vera_goto
 	bra     @prtstr_incr
-	
+
 prtstr_exit
 	rts
 
@@ -1087,7 +1087,7 @@ prtstr_shim
 	lda        print_to_file
 	bne        bs_out_str
 	jmp        prtstr
-	
+
 	;; No rts since control is switched to the appropriate routine
 
 ;;
@@ -1175,7 +1175,7 @@ prthexbytes
 prthex
 	phy
 	pha        ;; Preserve accumulator
-	
+
 	lda        K_TEXT_COLOR
 	tay
 	          
@@ -1195,9 +1195,9 @@ prthex
 	ply
 	rts
 
-;;	
+;;
 ;;	Print the hex digit in A
-;;	
+;;
 prthexdigit
 	and        #$0f
 	ora        #'0'            ; Add "0"
@@ -1207,7 +1207,7 @@ prthexdigit
 @prthexdigit_print
 	charOutA
 	rts
-	
+
 ;;
 ;; prtspaceto
 ;; Prints space until column in X is reached
@@ -1252,7 +1252,7 @@ prtspaceto
 ;; Input A  - Count of expected digits
 ;;       r1 - Prompt string
 ;;       r2 - Preload value ($FFFF is the 'don't use' value)
-;;	
+;;
 ;; Output
 ;;       r2              - Binary value (for historical and compat reasons)
 ;;       input_hex_value - Binary value
@@ -1332,7 +1332,7 @@ rdhex_09
 	jsr     rdhex_asl_value         ; preserves A
 	ora     input_hex_value
 	sta     input_hex_value
-	
+
 	bra     rdhex_incr
 
 rdhex_af
@@ -1454,7 +1454,7 @@ print_header
 	jsr     prthex
 	ldx     r0L
 	jsr     prthex
-	
+
 	charOut ','
 	charOut '$'
 
@@ -1462,14 +1462,14 @@ print_header
 	jsr     prthex
 	ldx     r1L
 	jsr     prthex
-	
+
 	callR1       prtstr,str_region_end
 
 	lda     orig_color
 	sta     K_TEXT_COLOR
 	jsr     print_horizontal_line
 	rts
-	
+
 fn_header            .byte " F1   F2   F3   F4   F5    F6    F7   F8         RAM BANK = ", 0
 str_region_start     .byte "PRGM REGION[$", 0
 str_region_end       .byte "]", CR, CR, 0

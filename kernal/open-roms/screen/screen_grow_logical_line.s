@@ -35,7 +35,7 @@ screen_grow_logical_line:
 	; Do not grow line if already grown
 	lda LDTBL+1, y
 	bpl screen_grow_logical_line_done
-	
+
 	; Scroll LDTBL down (start from the end)
 	ldy nlinesm1
 	dey

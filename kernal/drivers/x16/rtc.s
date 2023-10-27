@@ -187,7 +187,7 @@ rtc_nvram:
 	bcc :+
 	plp
 	sec
-	bra @exit	
+	bra @exit
 :
 	pha
 

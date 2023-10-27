@@ -110,7 +110,7 @@ edit_delete
 	jsr      meta_relocate_labels          ; Rely on preserving X
 	jsr      edit_relocate                 ; Rely on preserving X
 	jsr      meta_delete_expr              ; Rely upon preservation of X
-	
+
 	stx      r7L                           ; Will be needed later on for region_end adjustment
 	         
 	PushW    r2
@@ -135,7 +135,7 @@ edit_delete
 	lda      meta_rgn_end+1
 	sbc      r1H
 	sta      r2H                           ; r2 = size
- 	IncW     r2							   ; Finally, increase size by 1
+    IncW     r2							   ; Finally, increase size by 1
 
 	popBank
 	kerjsr   MEMCOPY
@@ -187,7 +187,7 @@ edit_relocate_loop
 	ifGE           r4,r5,edit_relocate_exit
 	         
 	MoveW          r4,r1
-	
+
 	PushW          r1
 	switchBankVar  bank_meta_i
 	jsr            meta_find_expr
@@ -349,5 +349,5 @@ edit_relocate_branch
 
 @edit_relocate_branch_skip
 	rts
-	
+
 

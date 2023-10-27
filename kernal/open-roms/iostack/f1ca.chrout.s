@@ -67,7 +67,7 @@ chrout_done_unknown_device:
 	jmp lvs_device_not_found_error
 
 chrout_done_success:
-	
+
 	plp
 	cli ; needed for screen (checked calling the routine on original ROMs), XXX what about other devices?
 

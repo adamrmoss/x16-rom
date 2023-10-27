@@ -10,18 +10,18 @@
 
 	.exportzp META_FN_NONE, META_FN_HI_BYTE, META_FN_LO_BYTE
 	.exportzp META_DATA_BYTE, META_DATA_WORD, META_DATA_PSTR, META_DATA_CSTR
-	
+
 	.exportzp META_FN_ADDR_MASK, META_FN_DATA_MASK, META_FN_MASK, META_I_RECORD_SIZE
-	
+
 	.export meta_delete_expr, meta_relocate_expr, meta_save_expr, meta_find_expr, meta_expr_iter_next
 
 	.include "bank.inc"
 	.include "bank_assy.inc"
 	.include "bank_assy_vars.inc"
 	.include "x16_kernal.inc"
-	
+
 	;; !zone meta_instruction
-	
+
 	META_FN_NONE    = 0
 	META_FN_HI_BYTE = 1
 	META_FN_LO_BYTE = 2
@@ -142,12 +142,12 @@ meta_save_write
 ;; Output r11  - Address of expression
 ;;        r12L - Expression enum
 ;;        r13  - Expression value
-;;	
+;;
 meta_expr_iter_next
 	pushBankVar    bank_meta_i
-	
+
 	ldy           #0
-	
+
 	lda           (r4),y
 	sta           r11L
 	iny
@@ -167,7 +167,7 @@ meta_expr_iter_next
 
 	popBank
 	rts
-	
+
 ;;
 ;; Find a meta expression.
 ;; Input  r1 - Address for searching
@@ -336,7 +336,7 @@ meta_relocate_expr
 	iny
 	lda            (r4),y
 	sta            M1H
-	
+
 	jsr            @meta_eval_expression
 	bcs            @meta_apply_exit
 	      

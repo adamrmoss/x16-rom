@@ -60,7 +60,7 @@ csysfar	stz ram_bank ; for fetching crombank
 	bra csysrz+1
 
 csysfr2	pha             ;Far jump; extra byte on stack for return bank
-	
+
 	lda spreg       ;Processor status -> stack
 	pha
 	lda sareg       ;A -> stack

@@ -8,7 +8,7 @@
 
 	.psc02                    ; Enable 65c02 instructions
 	.feature labels_without_colons
-	
+
 	.export step_apply, step_suspend, debug_get_brk_adjustment
 	.export registers_save, registers_restore
 
@@ -179,7 +179,7 @@ step_jmp_apply
 @step_jmp_next2
 	cmp   #JMP_IND_X_INSTRUCTION
 	bne   @step_jmp_exit
-	
+
 	pushBankVar   bank_assy
 	ldx   brk_data_x
 	popBank
@@ -260,7 +260,7 @@ step_suspend
 	LoadW        r1,step_var_start
 	ldy          #<(step_var_end - step_var_start)
 	lda          #0
-	
+
 :  
 	sta          (r1),y
 	dey
@@ -342,7 +342,7 @@ registers_save
 	pha
 	lda          bank_assy
 	sta          BANK_CTRL_RAM
-	
+
 	lda          r0L
 	sta          reg_save
 	lda          r0H

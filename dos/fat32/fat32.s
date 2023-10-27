@@ -1932,23 +1932,23 @@ decode_lfn_chars:
 	stx lfn_name_index
 	sta lfn_char_count
 @loop:
- 	lda (fat32_lfn_bufptr), y
- 	iny
- 	pha
- 	pha
- 	lda (fat32_lfn_bufptr), y
+    lda (fat32_lfn_bufptr), y
+    iny
+    pha
+    pha
+    lda (fat32_lfn_bufptr), y
 	iny
- 	plx
- 	pha
- 	jsr filename_char_ucs2_to_internal
+    plx
+    pha
+    jsr filename_char_ucs2_to_internal
 	ldx lfn_name_index
 	sta fat32_dirent + dirent::name, x
 	inc lfn_name_index
- 	pla
- 	plx
- 	bne @cont
- 	tax
- 	beq @end
+    pla
+    plx
+    bne @cont
+    tax
+    beq @end
 @cont:
 	dec lfn_char_count
 	bne @loop
@@ -1974,22 +1974,22 @@ decode_lfn_chars:
 encode_lfn_chars:
 	sta lfn_char_count
 @loop:
- 	lda (fat32_ptr), y
- 	pha
- 	phy
+    lda (fat32_ptr), y
+    pha
+    phy
 
- 	phx
+    phx
 	jsr filename_char_internal_to_ucs2
- 	ply
+    ply
 	sta (fat32_lfn_bufptr), y
 	iny
 	txa
 	sta (fat32_lfn_bufptr), y
 	iny
- 	phy
- 	plx
+    phy
+    plx
 
- 	ply
+    ply
 	pla
 	beq @end
 	iny
@@ -3883,7 +3883,7 @@ fat32_walk_tree:
 	cmp32_ne fat32_dirent + dirent::start, tree_prev_cluster, @next2
 	; we found it
 	sec
-	rts	
+	rts
 @error:
 	clc
 	rts

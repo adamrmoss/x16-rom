@@ -112,7 +112,7 @@ chrin_enter_calc_length:
 	; Calculate length
 	jsr screen_get_logical_line_end_ptr
 	iny
-	
+
 chrin_enter_loop:
 
 	; Retrieve bytes

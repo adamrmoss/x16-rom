@@ -7,13 +7,13 @@
 
 	.psc02                    ; Enable 65c02 instructions
 	.feature labels_without_colons
-	
+
 	.exportzp BANK_CTRL_ROM, BANK_CTRL_RAM
 	.export bank_initialize, bank_pop, bank_push, set_dirty
 
 	.include "bank_assy.inc"
 	.include "bank_assy_vars.inc"
-	
+
 	__X16_BANK__=1
 	.include "x16_kernal.inc"
 
@@ -28,9 +28,9 @@ bank_initialize
 
 	sec
 	kerjsr MEMTOP
-	
+
 	dec                       ; A = max bank number
-	
+
 	sta     bank_max
 	dec
 	sta     bank_assy
@@ -79,12 +79,12 @@ bank_pop
 	lda   (TMP1),y               ; (),3
 	iny
 	sta   (TMP1),y               ; (),4
-	
+
 	plx
 	pla                          ; Restore A
 	ply                          ; Discard old address value, get return address staged.
 	rts
-	
+
 ;;;
 ;;; Bank push
 ;;; Input - Bank value in A
@@ -111,7 +111,7 @@ bank_push
 	ldx   TMP2L
 
 	rts
-	
+
 ;;
 ;; Set dirty bit to value in A
 ;;

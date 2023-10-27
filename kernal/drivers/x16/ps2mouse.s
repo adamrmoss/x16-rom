@@ -80,7 +80,7 @@ _mouse_config:
 	jeq @skip
 
 	; scale
- 	lda #0
+    lda #0
 	cpx #41
 	bcs :+
 	ora #2
@@ -188,7 +188,7 @@ mouse_scan:
 _mouse_scan:
 	bit msepar ; do nothing if mouse is off
 	bpl @a
-	
+
 	ldx #I2C_ADDRESS
 	ldy #I2C_GET_MOUSE_MOVEMENT_OFFSET
 	jsr i2c_read_first_byte

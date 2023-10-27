@@ -8,7 +8,7 @@
 	.include "decoder.inc"
 	.include "meta.inc"
 	.include "meta_i.inc"
-	
+
 	.segment "CODEX_VECS"
 
 	.export  vec_meta_get_region, vec_meta_get_label, vec_meta_find_label, vec_meta_expr_iter, vec_meta_print_banked_label

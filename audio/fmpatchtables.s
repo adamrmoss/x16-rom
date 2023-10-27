@@ -288,7 +288,7 @@ drum_patches:
 	.byte $8A ; 45: Low Tom = 138 Tom
 	.byte $8D ; 46: 141 Open Hi-Hat
 	.byte $8A ; 47: Low-Mid Tom = 138 Tom
-	
+
 	.byte $8A ; 48: High-Mid Tom = 138 Tom
 	.byte $8E ; 49: Crash Cymbal 1 = 142 Crash
 	.byte $8A ; 50: High Tom = 138 Tom
@@ -418,7 +418,7 @@ drum_kc:
 	.byte $65 ; 85 Castanets (F6)
 	.byte $3E ; 86 Mute Surdo (YM C3/MIDI C4)
 	.byte $3E ; 87 Open Surdo (YM C3/MIDI C4)
-	
+
 	.byte $00,$00,$00,$00,$00,$00,$00,$00
 	.byte $00,$00,$00,$00,$00,$00,$00,$00
 	.byte $00,$00,$00,$00,$00,$00,$00,$00

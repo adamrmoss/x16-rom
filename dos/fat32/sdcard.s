@@ -340,7 +340,7 @@ sdcard_read_sector:
 	ldy #0				; 2
 
 	; Efficiently read first 256 bytes (hide SPI transfer time)
- 	ldy #0				; 2
+    ldy #0				; 2
 @3:	lda SPI_DATA			; 4
 	sta sector_buffer + 0, y	; 5
 	lda SPI_DATA			; 4

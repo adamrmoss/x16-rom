@@ -17,21 +17,21 @@ vector_real:
 	; Initial idea was to do php, cli, ..., plp to make the routine safer,
 	; but it seems it might cause problem with initialization on XEMU emulator
 	; XXX find out, why
-	
+
 	; Prepare the user data pointer - strange order to reduce risk
 	; of potential similarity to the original routine
 	sty MEMUSS + 1
 	stx MEMUSS + 0
-	
+
 	; Select routine variant - store or restore vectors
 	ldy #$1F
 	bcc vector_restore
-	
+
 	lda CINV, y
 	sta (MEMUSS), y
 
 	bcs vector_end_loop ; branch always
-	
+
 vector_restore:
 	lda (MEMUSS), y
 	sta CINV, y

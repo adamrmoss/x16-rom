@@ -106,7 +106,7 @@ reslst2	.byt "MO", 'N' + $80
 	; must be maintained. Parser will check all of reslst2 and then
 	; continue onward with checking entries in reslst3.
 	; realst2 is very close to max length.
-reslst3	
+reslst3
 	.byt "REBOO", 'T' + $80
 	.byt "POWEROF", 'F' + $80
 	.byt "I2CPOK", 'E' + $80

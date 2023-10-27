@@ -104,7 +104,7 @@ encode_table
 	einstr  inst_TYA,args_TYA
 	einstr  inst_WAI,args_WAI
 encode_table_end
-	
+
 encode_arguments_table
 
 args_ADC
@@ -128,69 +128,69 @@ args_AND
 	.byte MODE_ZP_X_IND,             $21
 	.byte MODE_ZP_IND_Y,             $31
 	.byte MODE_ZP_IND | MODE_LAST,   $32
-	
+
 args_ASL
 	.byte MODE_NONE,                 $0a
 	.byte MODE_ZP,                   $06
 	.byte MODE_ZP_X,                 $16
 	.byte MODE_ABS,                  $0e
 	.byte MODE_ABS_X | MODE_LAST,    $1e
-	
+
 args_BBR
 	.byte MODE_ZP_REL | MODE_LAST,   $0f         ; Will need bit number added in the parser/encoder
-	
+
 args_BBS
 	.byte MODE_ZP_REL | MODE_LAST,   $8f         ; Will need bit number added in the parser/encoder
-	
+
 args_BCC
 	.byte MODE_BRANCH | MODE_LAST,   $90         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BCS
 	.byte MODE_BRANCH | MODE_LAST,   $B0         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BEQ
 	.byte MODE_BRANCH | MODE_LAST,   $F0         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BIT
 	.byte MODE_IMMED,                $89
 	.byte MODE_ZP,                   $24
 	.byte MODE_ZP_X,                 $34
 	.byte MODE_ABS,                  $2c
 	.byte MODE_ABS_X | MODE_LAST,    $3c
-	
+
 args_BMI
 	.byte MODE_BRANCH | MODE_LAST,   $30         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BNE
 	.byte MODE_BRANCH | MODE_LAST,   $D0         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BPL
 	.byte MODE_BRANCH | MODE_LAST,   $10         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BRA
 	.byte MODE_BRANCH | MODE_LAST,   $80         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BRK
 	.byte MODE_NONE | MODE_LAST,     $00
-	
+
 args_BVC
 	.byte MODE_BRANCH | MODE_LAST,   $50         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_BVS
 	.byte MODE_BRANCH | MODE_LAST,   $70         ; Syntactically it looks ABS, but mode will be matched in get_arg_template
-	
+
 args_CLC
 	.byte MODE_NONE | MODE_LAST,     $18
-	
+
 args_CLD
 	.byte MODE_NONE | MODE_LAST,     $d8
-	
+
 args_CLI
 	.byte MODE_NONE | MODE_LAST,     $58
-	
+
 args_CLV
 	.byte MODE_NONE | MODE_LAST,     $b8
-	
+
 args_CMP
 	.byte MODE_IMMED,                $c9
 	.byte MODE_ZP,                   $c5
@@ -201,30 +201,30 @@ args_CMP
 	.byte MODE_ZP_X_IND,             $c1
 	.byte MODE_ZP_IND_Y,             $d1
 	.byte MODE_ZP_IND | MODE_LAST,   $d2
-	
+
 args_CPX
 	.byte MODE_IMMED,                $e0
 	.byte MODE_ZP,                   $e4
 	.byte MODE_ABS | MODE_LAST,      $ec
-	
+
 args_CPY
 	.byte MODE_IMMED,                $c0
 	.byte MODE_ZP,                   $c4
 	.byte MODE_ABS | MODE_LAST,      $cc
-	
+
 args_DEC
 	.byte MODE_NONE,                 $3a
 	.byte MODE_ZP,                   $c6
 	.byte MODE_ZP_X,                 $ce
 	.byte MODE_ABS,                  $ce
 	.byte MODE_ABS_X | MODE_LAST,    $de
-	
+
 args_DEX
 	.byte MODE_NONE | MODE_LAST,     $ca
-	
+
 args_DEY
 	.byte MODE_NONE | MODE_LAST,     $88
-	
+
 args_EOR
 	.byte MODE_IMMED,                $49
 	.byte MODE_ZP,                   $45
@@ -235,28 +235,28 @@ args_EOR
 	.byte MODE_ZP_X_IND,             $41
 	.byte MODE_ZP_IND_Y,             $51
 	.byte MODE_ZP_IND | MODE_LAST,   $52
-	
+
 args_INC
 	.byte MODE_NONE,                 $1a
 	.byte MODE_ZP,                   $e6
 	.byte MODE_ZP_X,                 $f6
 	.byte MODE_ABS,                  $ee
 	.byte MODE_ABS_X | MODE_LAST,    $fe
-	
+
 args_INX
 	.byte MODE_NONE | MODE_LAST,     $e8
-	
+
 args_INY
 	.byte MODE_NONE | MODE_LAST,     $c8
-	
+
 args_JMP
 	.byte MODE_ABS,                   $4c
 	.byte MODE_IND,                   $6c
 	.byte MODE_ABS_X_IND | MODE_LAST, $7c
-	
+
 args_JSR
 	.byte MODE_ABS | MODE_LAST,      $20
-	
+
 args_LDA
 	.byte MODE_IMMED,                $a9
 	.byte MODE_ZP,                   $a5
@@ -267,31 +267,31 @@ args_LDA
 	.byte MODE_ZP_X_IND,             $a1
 	.byte MODE_ZP_IND_Y,             $b1
 	.byte MODE_ZP_IND | MODE_LAST,   $b2
-	
+
 args_LDX
 	.byte MODE_IMMED,                $a2
 	.byte MODE_ZP,                   $a6
 	.byte MODE_ZP_Y,                 $b6
 	.byte MODE_ABS,                  $ae
 	.byte MODE_ABS_Y | MODE_LAST,    $be
-	
+
 args_LDY
 	.byte MODE_IMMED,                $a0
 	.byte MODE_ZP,                   $a4
 	.byte MODE_ZP_Y,                 $b4
 	.byte MODE_ABS,                  $ac
 	.byte MODE_ABS_Y | MODE_LAST,    $bc
-	
+
 args_LSR
 	.byte MODE_NONE,                 $4a
 	.byte MODE_ZP,                   $46
 	.byte MODE_ZP_X,                 $56
 	.byte MODE_ABS,                  $4e
 	.byte MODE_ABS_X | MODE_LAST,    $5e
-	
+
 args_NOP
 	.byte MODE_NONE | MODE_LAST,     $ea
-	
+
 args_ORA
 	.byte MODE_IMMED,                $09
 	.byte MODE_ZP,                   $05
@@ -302,54 +302,54 @@ args_ORA
 	.byte MODE_ZP_X_IND,             $01
 	.byte MODE_ZP_IND_Y,             $11
 	.byte MODE_ZP_IND | MODE_LAST,   $12
-	
+
 args_PHA
 	.byte MODE_NONE | MODE_LAST,     $48
-	
+
 args_PHP
 	.byte MODE_NONE | MODE_LAST,     $08
-	
+
 args_PHX
 	.byte MODE_NONE | MODE_LAST,     $da
-	
+
 args_PHY
 	.byte MODE_NONE | MODE_LAST,     $5a
-	
+
 args_PLA
 	.byte MODE_NONE | MODE_LAST,     $68
-	
+
 args_PLP
 	.byte MODE_NONE | MODE_LAST,     $28
-	
+
 args_PLX
 	.byte MODE_NONE | MODE_LAST,     $fa
-	
+
 args_PLY
 	.byte MODE_NONE | MODE_LAST,     $7a
-	
+
 args_RMB
 	.byte MODE_ZP_BIT | MODE_LAST,   $07         ; Will need bit number added in the parser/encoder
-	
+
 args_ROL
 	.byte MODE_NONE,                 $2a
 	.byte MODE_ZP,                   $26
 	.byte MODE_ZP_X,                 $36
 	.byte MODE_ABS,                  $2e
 	.byte MODE_ABS_X | MODE_LAST,    $3e
-	
+
 args_ROR
 	.byte MODE_NONE,                 $6a
 	.byte MODE_ZP,                   $66
 	.byte MODE_ZP_X,                 $76
 	.byte MODE_ABS,                  $6e
 	.byte MODE_ABS_X | MODE_LAST,    $7e
-	
+
 args_RTI
 	.byte MODE_NONE | MODE_LAST,     $40
   
 args_RTS
 	.byte MODE_NONE | MODE_LAST,     $60
-	
+
 args_SBC
 	.byte MODE_IMMED,                $e9
 	.byte MODE_ZP,                   $e5
@@ -360,19 +360,19 @@ args_SBC
 	.byte MODE_ZP_X_IND,             $e1
 	.byte MODE_ZP_IND_Y,             $f1
 	.byte MODE_ZP_IND | MODE_LAST,   $f2
-	
+
 args_SEC
 	.byte MODE_NONE | MODE_LAST,     $38
-	
+
 args_SED
 	.byte MODE_NONE | MODE_LAST,     $f8
-	
+
 args_SEI
 	.byte MODE_NONE | MODE_LAST,     $78
-	
+
 args_SMB
 	.byte MODE_ZP_BIT | MODE_LAST,   $87         ; Will need bit number added in the parser/encoder
-	
+
 args_STA
 	.byte MODE_ZP,                   $85
 	.byte MODE_ZP_X,                 $95
@@ -382,55 +382,55 @@ args_STA
 	.byte MODE_ZP_X_IND,             $81
 	.byte MODE_ZP_IND_Y,             $91
 	.byte MODE_ZP_IND | MODE_LAST,   $92
-	
+
 args_STP
 	.byte MODE_NONE | MODE_LAST,     $db
-	
+
 args_STX
 	.byte MODE_ZP,                   $86
 	.byte MODE_ZP_X,                 $96
 	.byte MODE_ABS | MODE_LAST,      $8e
-	
+
 args_STY
 	.byte MODE_ZP,                   $84
 	.byte MODE_ZP_X,                 $94
 	.byte MODE_ABS | MODE_LAST,      $8c
-	
+
 args_STZ
 	.byte MODE_ZP,                   $64
 	.byte MODE_ZP_X,                 $74
 	.byte MODE_ABS,                  $9c
 	.byte MODE_ABS_X | MODE_LAST,    $9e
-	
+
 args_TAX
 	.byte MODE_NONE | MODE_LAST,     $aa
-	
+
 args_TAY
 	.byte MODE_NONE | MODE_LAST,     $a8
-	
+
 args_TRB
 	.byte MODE_ZP,                   $14
 	.byte MODE_ABS | MODE_LAST,      $1c
-	
+
 args_TSB
 	.byte MODE_ZP,                   $04
 	.byte MODE_ABS | MODE_LAST,      $0c
-	
+
 args_TSX
 	.byte MODE_NONE | MODE_LAST,     $ba
-	
+
 args_TXA 
 	.byte MODE_NONE | MODE_LAST,     $8a
   
 args_TXS
 	.byte MODE_NONE | MODE_LAST,     $9a
-	
+
 args_TYA
 	.byte MODE_NONE | MODE_LAST,     $98
-	
+
 args_WAI
 	.byte MODE_NONE | MODE_LAST,     $cb
-	
+
 
 ;;
 ;; Encode string - Given a string, encode as a series of bytes
@@ -683,7 +683,7 @@ encode_cstr_string
 @encode_cstr_error
 	sec
 	rts
-	
+
 ;;
 ;; Pseudo op PSTR
 ;; Input r1 - pointer to string of word values
@@ -700,7 +700,7 @@ encode_pstr_string
 	sta         code_buffer
 	iny
 	sty         encode_buffer_size
-	
+
 	lda      encode_dry_run
 	bne      @encode_pstr_no_error
 	      
@@ -728,17 +728,17 @@ encode_pstr_string
 ;; Input r1 - Ptr to "string"
 ;; Output Y - length of string
 ;;       r2 - Points to encode buffer
-;;	
+;;
 encode_string_parse
 	lda         (r1)
 	cmp         #DBL_QUOTE
 	bne         @encode_string_error
 
 	LoadW       r2,code_buffer
-	
+
 	lda         encode_buffer_size
 	sta         TMP1L
-	
+
 	IncW        r1
 	ldy         #0
 @encode_string_loop
@@ -761,7 +761,7 @@ encode_string_parse
 @encode_string_error
 	sec
 	rts
-	
+
 ;;
 ;; Lookup the argument template matching the parsed mode
 ;; Input  A - parsed mode
@@ -823,7 +823,7 @@ encode_get_argument_template
 	bne      :+
 	lda      #MODE_IND
 	bra      encode_get_argument_template 
-:	
+:
 	sec
 	rts
 
@@ -874,7 +874,7 @@ encode_parse_emitter_table
 ;;       r1  - value
 @encode_three_bytes
 	lda      #3
-	
+
 @encode_stuff_bytes
 	sta      encode_buffer_size
 
@@ -1141,7 +1141,7 @@ encode_parse_indirect
 	sta          (r1),y
 
 	jsr          encode_parse_expression
-	
+
 	lda          #MODE_ZP_IND_Y
 	clc
 	rts
@@ -1156,7 +1156,7 @@ encode_parse_indirect
 	sta          (r1),y
 
 	jsr          encode_parse_expression
-	
+
 	lda          r1H
 	bne          :+
 	lda          #MODE_ZP_IND
@@ -1185,7 +1185,7 @@ encode_zp_bit_bytes
 	asl
 	ora   r2H
 	sta   code_buffer
-	
+
 	lda   r1L
 	sta   code_buffer+1
 

@@ -85,7 +85,7 @@ GRAPH_init:
 	lda #0  ; primary:    black
 	ldx #10 ; secondary:  gray
 	ldy #1  ; background: white
-	
+
 	jsr GRAPH_set_colors
 
     jsr GRAPH_clear

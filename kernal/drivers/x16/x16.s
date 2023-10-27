@@ -132,7 +132,7 @@ boot_cartridge:
 	bne @no
 	dey
 	bpl @chkloop
-	
+
 	jsr jsrfar
 	.word $C004
 	.byte 32 ; cartridge ROM

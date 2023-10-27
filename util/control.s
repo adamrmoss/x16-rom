@@ -339,7 +339,7 @@ mu1:	rts
 	jsr clear_menu_option
 	inc menu_select
 	jsr highlight_menu_option
-md1:	rts	
+md1:	rts
 .endproc
 
 
@@ -513,7 +513,7 @@ gm06:	sta VERA_DATA0
 	sta VERA_DATA0
 	dey
 	cpy #00
-	bne gm05	
+	bne gm05
 	;now do the bottom line
 	lda screen_h
 	clc
@@ -579,7 +579,7 @@ ge16a:
 ge16b:
 	cmp #27             ;Esc
 	beq ge18a
-ge17:	cmp #13         ;return	
+ge17:	cmp #13         ;return
 	bne ge19
 	lda menu_select
 	cmp #5
@@ -591,7 +591,7 @@ ge18:	cmp #6
 ge18a:	lda #2
 	sta menu_select
 	jmp main_menu
-ge19:	jmp ge10	
+ge19:	jmp ge10
 
 eggy:
 	ldx #6
@@ -647,7 +647,7 @@ cu01:	cmp #3          ;h/v start
 	bne cu02
 	jmp dec_vstart
 cu02:	jmp dec_vstop
-	
+
 
 s_down:
 	lda menu_select
@@ -674,10 +674,10 @@ d_right:
 	cmp #2	;screen size
 	bne cr01
 	jmp dec_hscale
-cr01:	cmp #3	;hv-start	
+cr01:	cmp #3	;hv-start
 	bne cr02
 	jmp inc_hstart
-cr02:	jmp inc_hstop	
+cr02:	jmp inc_hstop
 
 inc_vstop:
 	lda #%00000010
@@ -914,7 +914,7 @@ mode_screen_text2:
 	sta VERA_ADDR_M
 	lda #01
 	sta VERA_ADDR_L
-	lda VERA_DATA0  ;get color data for top-left character	
+	lda VERA_DATA0  ;get color data for top-left character
 	and #%00001111
 	sta tcol
 	lda VERA_DATA0  ;get color data for top-left character (again)
@@ -1144,7 +1144,7 @@ col_screen_text:
 	bcc @2
 	ora #$80
 @2:	sta VERA_DATA0
-	rts	
+	rts
 .endproc
 
 .proc keyboard_layout_menu: near
@@ -1189,7 +1189,7 @@ klm9:	cmp #27			;Esc
 klma:	bra klm3
 
 kl_execute:
-kle2:	
+kle2:
 	jsr kl_apply_layout
 	lda #4
 	sta menu_select
@@ -1229,7 +1229,7 @@ kal2:
 	beq kal3
 	iny
 	bra kal2
-kal3:	
+kal3:
 	ldx #<filename_buf
 	ldy #>filename_buf
 	clc
@@ -1321,7 +1321,7 @@ sme3:	cmp #2
 sme4:	lda #5
 	sta menu_select
 	jmp main_menu
-	
+
 save_to_nvram0:
 	sec
 	jsr screen_mode ;get current screen mode
@@ -1492,7 +1492,7 @@ sab1:	lda filename-1,x
 	jsr setlfs          ;setlfs a=logical number x=device number y=secondary
 
 	jsr open
-	
+
 	ldx #$02
 	jsr ckout           ;open for write and set output channel
 
@@ -1528,7 +1528,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	pla
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1540,7 +1540,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_VIDEO
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1552,7 +1552,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_HSCALE
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1564,7 +1564,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_VSCALE
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1576,7 +1576,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_BORDER
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1592,7 +1592,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_HSTART
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1604,7 +1604,7 @@ sab1:	lda filename-1,x
 	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_HSTOP
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1613,10 +1613,10 @@ sab1:	lda filename-1,x
 
 	;Vertical Start (DC_VSTART)
 	lda VERA_DC_VSTART
-	jsr convert_high_nybble	
+	jsr convert_high_nybble
 	jsr bsout
 	lda VERA_DC_VSTART
-	jsr convert_low_nybble	
+	jsr convert_low_nybble
 	jsr bsout
 	lda #0
 	jsr bsout
@@ -1814,14 +1814,14 @@ altbasic_end:
 	lsr
 	lsr
 	tay
-	lda hex_table,y	
+	lda hex_table,y
 	rts
 .endproc
 
 .proc convert_low_nybble: near
 	and #%00001111
 	tay
-	lda hex_table,y	
+	lda hex_table,y
 	rts
 .endproc
 
@@ -1975,7 +1975,7 @@ dec_year:
 	sec
 	sbc #1
 	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 dec_month:
@@ -1988,7 +1988,7 @@ dec_month:
 	bne @1
 	lda #$12
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 dec_day:
@@ -2001,7 +2001,7 @@ dec_day:
 	bne @1
 	lda #$31
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 dec_wday:
@@ -2013,7 +2013,7 @@ dec_wday:
 	bne @1
 	lda #7
 @1:	ora #$08
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 
@@ -2028,9 +2028,9 @@ dec_hour:
 	bpl @1
 	lda #$23
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
-	
+
 dec_min:
 	ldx #rtc_address
 	ldy #1
@@ -2052,7 +2052,7 @@ dec_common:
 	bcc @1
 	lda #$59
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 
@@ -2065,7 +2065,7 @@ inc_year:
 	clc
 	adc #1
 	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 inc_month:
@@ -2079,7 +2079,7 @@ inc_month:
 	bcc @1
 	lda #$01
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 
@@ -2094,7 +2094,7 @@ inc_day:
 	bcc @1
 	lda #$01
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 
@@ -2108,7 +2108,7 @@ inc_wday:
 	bcc @1
 	lda #1
 @1:	ora #$08
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 
@@ -2124,7 +2124,7 @@ inc_hour:
 	bcc @1
 	lda #$00
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 inc_min:
@@ -2148,7 +2148,7 @@ inc_common:
 	bcc @1
 	lda #$00
 @1:	cld
-	jsr i2c_write_byte	
+	jsr i2c_write_byte
 	rts
 
 
@@ -2303,11 +2303,11 @@ td_update_display:
 
 	jsr hexwrite
 
-	rts	
+	rts
 
 wkdy:
 	scrcode "MON TUE WED THU FRI SAT SUN"
-time_date_text:	
+time_date_text:
 	.byte 147       ;clear screen
 	.byte "SET TIME AND DATE",13
 	.byte 163,163,163,163,163,163,163,163,163,163

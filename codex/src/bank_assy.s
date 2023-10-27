@@ -14,7 +14,7 @@
 ;; Banked variables.
 ;; Code must switch bank prior to acess
 ;;
-	
+
 	;; Watches look like
 	;;   !byte 0 ; type
 	;;   !byte 1 ; bank
@@ -38,11 +38,11 @@
 	.endif
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	
+
 	;; Enumerations and constants
 	.exportzp WATCH_EMPTY, WATCH_BYTE, WATCH_WORD, WATCH_CSTR, WATCH_PSTR
 	.exportzp WATCH_ENTRY_SIZE, WATCH_ENTRY_COUNT, WATCH_BYTE_COUNT, WATCH_NON_HIGHLIGHT
-	
+
 	;; bank_assy
 	.export orig_file_name
 	.export watch_counter, watch_highlight, watch_start
@@ -67,36 +67,36 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	.segment "CODEX_STATE"
-	
+
 	.org $A000
-	
+
 orig_file_name    .res 64
-	
+
 watch_counter     .res 1
 watch_highlight   .res 1
 watch_start       .repeat WATCH_ENTRY_COUNT
 	               .res WATCH_ENTRY_SIZE
 	               .endrep
-	
+
 watch_guard       .res 2   
-	
+
 old_brk_vector    .res 2
-brk_data_valid    .res 1	
+brk_data_valid    .res 1
 brk_bank          .res 1
-brk_data_psr      .res 1	
-brk_data_pc       .res 2	
+brk_data_psr      .res 1
+brk_data_pc       .res 2
 brk_data_a        .res 1
 brk_data_x        .res 1
 brk_data_y        .res 1
 brk_data_sp       .res 1
-	
-step_1_bank       .res 1	
-step_1_addr       .res 2	
-step_1_byte       .res 1	
-	
-step_2_bank       .res 1	
-step_2_addr       .res 2	
-step_2_byte       .res 1	
+
+step_1_bank       .res 1
+step_1_addr       .res 2
+step_1_byte       .res 1
+
+step_2_bank       .res 1
+step_2_addr       .res 2
+step_2_byte       .res 1
 	                             
 vera_save_addr_hi  .res 1
 vera_save_addr_mid .res 1
@@ -121,7 +121,7 @@ assy_dirty         .res 1
 
 	;; Meta data as stored in a memory bank (bank_meta_l)
 	.segment "META_L"
-	
+
 	.org $A000
 meta_tag           .res 6
 meta_rgn_start     .res 2
@@ -137,11 +137,11 @@ label_data_start   .res 2
 
 	;; Meta expressions for individual instructions in (bank_meta_i)
 fg                  .segment "META_I"
-	
+
 	                .org $a000
 meta_i_tag         .res 6
 meta_i_last        .res 2
 meta_i_entry_0     .res 2
 
 	;; end of metadata
-	
+

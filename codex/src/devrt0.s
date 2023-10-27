@@ -11,12 +11,12 @@
 	.import  main_entry
 
 	.org     $801
-	
+
 	.segment "BOOTSTRAP"
 	.word    *
-	
+
 basic_loader:  
 	.byte $0B,$08,$01,$00,$9E,$32,$30,$36,$31,$00,$00,$00   ; Adds BASIC line:  1 SYS 2061
-	
+
 	jmp   main_entry
-	
+

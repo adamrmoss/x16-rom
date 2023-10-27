@@ -28,7 +28,7 @@
 	.export inst_TSB, inst_TSX, inst_TXA, inst_TXS, inst_TYA, inst_WAI, inst_UNK
 
 	.export str_decoder_po_byte, str_decoder_po_word, str_decoder_po_pstr, str_decoder_po_cstr
-	
+
 	.include "bank.inc"
 	.include "bank_assy_vars.inc"
 	.include "decoder_vars.inc"
@@ -38,14 +38,14 @@
 	.include "screen.inc"
 	.include "x16_kernal.inc"
 
-	
+
 ;; Decoder tries to keep r10 pointing to the decoded_str
 
 ;;
 ;; Raw instruction menmonics, created by an offline "compressor". Each entry point goes to a 3 character mnemonic.
 ;;
 mnemonics
-	
+
 inst_STZ   .byte "STZ"
 inst_BRK   .byte "BRK"
 inst_SEC   .byte "SE"
@@ -116,9 +116,9 @@ inst_DEX   .byte "DEX"
 inst_SED   .byte "SE"
 inst_DEY   .byte "DEY"
 inst_SEI   .byte "SEI"
-	
+
 inst_UNK        .byte "???"
-	
+
 	.macro instr str,count,mode
 	   .byte (str-mnemonics)
 	   .byte $ff & (count*$20 + mode)
@@ -216,7 +216,7 @@ decode_table
 	instr inst_AND,3,MODE_ABS              ; 2D
 	instr inst_ROL,3,MODE_ABS              ; 2E
 	instr inst_BBR,3,MODE_ZP_REL           ; 2F
-	
+
 ;; 3x
 	instr inst_BMI,2,MODE_BRANCH           ; 30
 	instr inst_AND,2,MODE_ZP_IND_Y         ; 31
@@ -270,7 +270,7 @@ decode_table
 	instr inst_EOR,3,MODE_ABS_X            ; 5D
 	instr inst_LSR,3,MODE_ABS_X            ; 5E
 	instr inst_BBR,3,MODE_ZP_REL           ; 5F
-	
+
 ;; 6x
 	instr inst_RTS,1,MODE_NONE             ; 60
 	instr inst_ADC,2,MODE_ZP_X_IND         ; 61
@@ -414,7 +414,7 @@ decode_table
 	instr inst_CMP,3,MODE_ABS_X            ; DD
 	instr inst_DEC,3,MODE_ABS_X            ; DE
 	instr inst_BBR,3,MODE_ZP_REL           ; DF
-	
+
 	;; Ex
 	instr inst_CPX,2,MODE_IMMED            ; E0
 	instr inst_SBC,2,MODE_ZP_X_IND         ; E1
@@ -480,7 +480,7 @@ decode_arg_dispatch
 	.word   decode_arg_zp_bit      ; MODE_ZP_BIT=15
 	.word   decode_arg_zp_rel      ; MODE_ZP_REL=16
 	.word   decode_arg_unknown      ; MODE_UNK=17
-	
+
 ;;
 ;; Decode next instruction
 ;; Index into the decode table, get mnemonic index, convert index to address, return in r1
@@ -757,7 +757,7 @@ decode_arg_zp
 	lda     (r2),y
 
 	jsr     decode_push_label_or_hex_zp
-	
+
 	jsr     decode_terminate
 	rts
 
@@ -959,7 +959,7 @@ decode_arg_zp_bit
 	lda     #','
 	tay
 	jsr     decode_push_dual_char
-	
+
 	ldy     #1
 	lda     (r2),y
 
@@ -1041,7 +1041,7 @@ decode_pseudo_hi_byte
 	;;
 decode_pseudo_lo_byte
 	lda     #'<'
-	
+
 decode_pseudo_terminate_value
 	jsr     decode_push_char
 	jsr     decode_push_pseudo_hex_or_label
@@ -1054,7 +1054,7 @@ decode_pseudo_terminate_value
 	;;
 decode_pseudo_word
 	inc 		r0H        ; Indicate that word sized arguments are to be decoded
-	
+
 decode_pseudo_byte
 	ldy     #$0
 @decode_pseudo_byte_loop
@@ -1176,7 +1176,7 @@ decode_push_label_or_hex_zp
 	lda     #'$'
 	jsr     decode_push_char
 	pla
-	
+
 	jsr     decode_push_hex
 
 	rts
@@ -1323,7 +1323,7 @@ decode_push_hex
 @decode_push_hex_done
 	jsr     decode_push_char
 	rts
-	
+
 ;; 
 ;; Push the entire value of r1 into the decode_buffer
 ;; 

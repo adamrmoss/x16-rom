@@ -14,7 +14,7 @@
 	;; this list of conditions and the following disclaimer in the documentation
 	;; and/or other materials provided with the distribution.
 	;; 
-	;;	
+	;;
 	;;    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	;; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	;; LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -48,21 +48,21 @@
 	STACK_COL = SIDE_BAR_X + DBG_BOX_WIDTH
 	STACK_ROW = DATA_ROW
 	STACK_BOX_HEIGHT = 20
-	
+
 	REGISTER_COL = SIDE_BAR_X + 6
 	REGISTER_ROW = STACK_ROW
 	REGISTER_BOX_HEIGHT = 20
-	
+
 	PSR_COL = SIDE_BAR_X
 	PSR_ROW = REGISTER_ROW + REGISTER_BOX_HEIGHT 
 	PSR_BOX_HEIGHT = 15
 	PSR_BOX_WIDTH = 15
-	
+
 	WATCH_COL = SIDE_BAR_X
 	WATCH_ROW = PSR_ROW + PSR_BOX_HEIGHT 
 	WATCH_BOX_HEIGHT = 20
 	WATCH_BOX_WIDTH = DBG_BOX_WIDTH + DBG2_BOX_WIDTH
-	
+
 	VERA_COL = PSR_COL + PSR_BOX_WIDTH
 	VERA_ROW = PSR_ROW
 	VERA_BOX_WIDTH = 15
@@ -76,13 +76,13 @@
 ;;      R3 - Parameters, saved in routines
 ;;      R4 - Parameters, saved in routines
 ;;      R5 - Parameters, saved in routines
-	
+
 ;;      R6
 ;;      R7
 ;;      R8
 ;;      R9
 ;;      R10 - code_buffer
-	
+
 ;;      R11 - scratch, not saved
 ;;      R12 - scratch, not saved
 ;;      R13 - scratch, not saved
@@ -94,7 +94,7 @@
 ;;      x18
 ;;      x19
 ;;      x20
-	
+
 	.code
 	             
 	.include "bank.inc"
@@ -114,7 +114,7 @@
 	.include "decoder_vars.inc"
 	.include "encode_vars.inc"
 	.include "cx_vars.inc"
-	
+
 	.include "decoder.inc"
 	.include "dispatch.inc"
 	.include "meta.inc"
@@ -136,13 +136,13 @@
 	.code
 
 	.export main_entry
-	
+
 main_entry: 
 	lda     orig_color
 	sta     K_TEXT_COLOR
 
 	callR1R2R3  file_replace_ext,code_buffer,str_ext_txt,str_empty
-	
+
 	callR1R2    read_string_with_prompt,filename_prompt,code_buffer
 
 	stz         ap_set
@@ -151,7 +151,7 @@ main_entry:
 	callR1R2    util_strcmp,input_string,str_aptest
 	bne         main_save
 	inc         ap_set
-	
+
 main_save:
 	PopW        r2
 	PopW        r1
@@ -165,7 +165,7 @@ main_save:
 
 	clc
 	rts
-	
+
 str_done:   .byte "DONE", 0
 str_aptest  .byte $41, $53, $53, $50, $41, $44, $2e, $54, $58, $54, 0
 str_apcmt:  .byte $3b, $0d, $3b, $20, $41, $53, $53, $50, $41, $44, $2c, $20, $43, $4f
@@ -177,9 +177,9 @@ ap_set      .byte 0
 
 ;;; -------------------------------------------------------------------------------------
 	.code
-	
+
 ;; Strings and display things
-	
+
 filename_prompt      .byte "FNAME: ", 0
 
 str_press_2_continue .byte "PRESS A KEY TO CONTINUE...", 0
@@ -188,7 +188,7 @@ str_region_start     .byte "PRGM REGION[$", 0
 str_region_sep       .byte ",$", 0
 str_region_end       .byte "]", CR, 0
 str_empty            .byte 0
-	
+
 
 ;;; -------------------------------------------------------------------------------------
 	.code
@@ -224,12 +224,12 @@ file_save_text
 
 	ldx         #$04
 	kerjsr      CHKOUT
-	
+
 	aejsr       vec_meta_get_region
 	MoveW       r0,r2
 	MoveW       r1,r3
 	IncW        r3
-	
+
 	lda         #1
 	sta         print_to_file
 
@@ -264,15 +264,15 @@ file_save_text
 file_save_ap:
 	lda          ap_set
 	beq          file_save_ap_exit
-	
+
 	callR1  bs_out_str,str_apcmt
 
 file_save_ap_exit:   
 	rts
 
-;;	
+;;
 ;;	Save text, print labels, which are labels outside of start to end of the program region
-;;	
+;;
 file_save_text_symbols
 	LoadW       r4,label_data_start
 
@@ -302,14 +302,14 @@ file_save_text_loop
 	jsr         bs_out_str
 	jsr         file_save_emit_cr
 
-	
+
 @file_save_text_incr
 	AddVW       4,r4
 	bra         file_save_text_loop
 
 file_save_text_exit
 	rts
-	
+
 ;;
 ;;
 ;;
@@ -337,7 +337,7 @@ file_save_text_program
 @file_save_text_next
 	MoveW   r2,r1
 	aejsr   vec_meta_find_label
-	
+
 	bne     @file_save_text_program_no_label
 
 	MoveW	r0,r1
@@ -356,7 +356,7 @@ file_save_text_program
 	lda     (r1)
 	beq     @file_save_text_program_no_args
 	jsr     bs_out_str
-	
+
 @file_save_text_program_no_args
 	jsr     file_save_emit_cr
 
@@ -375,21 +375,21 @@ file_save_text_program
 
 @file_save_text_program_exit
 	rts
-	
+
 str_file_save_spaces   .byte "   "
 str_file_save_spaces_3 .byte "   ", 0
 str_file_save_org      .byte "*=", 0   
-	
+
 ;; -------------------------------------------------------------------------------------------------
 
-;;	
+;;
 ;;	Clear the area under the header
-;;	
+;;
 clear_content
 	vgotoXY 0,HDR_ROW+3
 	ldx     #80
 	ldy     #57
 	jsr     erase_box
 	rts
-	
+
 	.endproc

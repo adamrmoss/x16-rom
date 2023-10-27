@@ -19,5 +19,5 @@ chrout_screen_quote:
 	; now add $c0 if C is set from overflow
 	bcc :+
 	adc #$BF    ; C=1, so adding $BF + C = add $C0
-:	
+:
 	jmp chrout_screen_literal

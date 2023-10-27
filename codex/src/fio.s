@@ -28,7 +28,7 @@
 ;;
 ;; Output A - Error code from open
 ;;        Carry - 1 if error, 0 otherwise   
-;;	
+;;
 file_open
 	ldx  r1L
 	ldy  r1H
@@ -49,7 +49,7 @@ file_open_error
 	lda     #4                 ; File not found
 	sec
 	rts
-	
+
 ;;
 ;; Print error - Set error message ptr into ERR_MSG
 ;; Input - Error code
@@ -89,11 +89,11 @@ ERR_NOT_INPUT    .byte "NOT INPUT FILE", 0       ; NOT AN INPUT FILE
 ERR_NOT_OUTPUT   .byte "NOT OUTPUT FILE", 0      ; NOT AN OUTPUT FILE
 ERR_MISSING_FN   .byte "MISSING FNAME", 0        ; MISSING FILE NAME
 ERR_BAD_DEV_NUM  .byte "BAD DEV NUMBER", 0       ; BAD DEVICE NUMBER
-	
+
 file_open_seq_read_str  .byte ",S,R", 0
 file_open_seq_write_str .byte ",S,W", 0
-	
-	
+
+
 ;;
 ;; Replace the extension on the file (input_string) with the one pointed to r1
 ;; Input r1 - destination string
@@ -140,15 +140,15 @@ file_replace_ext
 	ply                             ;; index into extension
 	iny
 	bra       @file_replace_fix_append_loop
-	
-@file_replace_end_extension	
-	
+
+@file_replace_end_extension
+
 	;; If open arguments are pointing to zero, skip
 	lda       r3L
 	ora       r3H
 	beq       @file_replace_ext_exit
 	ldy       #0
-	
+
 @file_replace_ext_append_mode
 	lda       (r3),y
 	phy
@@ -159,7 +159,7 @@ file_replace_ext
 	iny
 	cmp       #0
 	bne       @file_replace_ext_append_mode
-	
+
 @file_replace_ext_mode_complete
 	lda       r4L
 	dec
@@ -168,13 +168,13 @@ file_replace_ext
 @file_replace_ext_exit
 	rts
 	             
-	
+
 
 ;;
 ;; Load data into an extended RAM bank $A000
-;; Input_string - filename	
+;; Input_string - filename
 ;; Input r1 - ptr to new extension
-;;       C  - clear, do tag comparison, set, do NOT do tag comparison	
+;;       C  - clear, do tag comparison, set, do NOT do tag comparison
 ;;       
 file_load_bank_a000
 	php
@@ -187,22 +187,22 @@ file_load_bank_a000
 	ldx   #8              ; device number
 	ldy   #0					; load to specified address
 	kerjsr SETLFS
-	
+
 	ldx   #<input_string
 	ldy   #>input_string
 	lda   input_string_length
 	kerjsr SETNAME
-	
+
 	ldx	#<$a000
 	ldy	#>$a000
 	lda	#0
 	kerjsr LOAD
-	
+
 	bcs   file_load_debug_the_error
 	jsr   file_set_error
-	
+
 	dec        BANK_CTRL_RAM ; Load incremented the RAM bank
-	
+
 	plp
 	bcs	@file_load_bank_a000_final_exit
 
@@ -249,7 +249,7 @@ file_save_bank_a000
 	LoadW  r1,input_string
 	LoadW  r3,0
 	jsr   file_replace_ext
-	
+
 	lda   #0              ; logical file number
 	ldx   #8              ; device number
 	ldy   #1              ; 0 == load to address in file
@@ -259,7 +259,7 @@ file_save_bank_a000
 	ldy   #>input_string
 	lda   input_string_length
 	kerjsr SETNAME
-	
+
 	jsr   meta_get_region
 	IncW   r1
 

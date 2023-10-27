@@ -14,7 +14,7 @@
 MEMTOP:
 
 	bcc memtop_set
-	
+
 	ldy MEMSIZK+1
 	ldx MEMSIZK+0
 
@@ -24,5 +24,5 @@ memtop_set: ; for compatibility reasons this has to start at $FE2D
 
 	sty MEMSIZK+1
 	stx MEMSIZK+0
-	
+
 	rts

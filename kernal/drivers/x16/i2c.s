@@ -259,14 +259,14 @@ i2c_read_byte:
 	pha
 	jsr i2c_read_stop
 	pla
-	
+
 	ply
 	plx
 	plp
-	
+
 	cmp #0
 	clc
-	
+
 	rts
 
 @err:
@@ -311,7 +311,7 @@ i2c_read_first_byte:
 	inc
 	jsr i2c_write
 	bra i2c_read_next_byte_after_ack
-	
+
 @error:
 	pla
 	jsr i2c_stop
@@ -339,7 +339,7 @@ i2c_read_next_byte_after_ack:
 	cmp #0
 	clc
 	rts
-	
+
 ;---------------------------------------------------------------
 ; i2c_read_stop
 ;
@@ -518,7 +518,7 @@ i2c_write_loop:
 ;---------------------------------------------------------------
 i2c_read:
 	ldx #8
-i2c_read_loop:	
+i2c_read_loop:
 	tay
 	rec_bit
 	tya

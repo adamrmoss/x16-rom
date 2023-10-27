@@ -169,7 +169,7 @@ dosnum:
 	jsr dossw
 	jmp dosret
 @fcerr:
-	jmp fcerr	
+	jmp fcerr
 @dd:
 	cmp #4 ; can't be above 32 anyway
 	bcs @fcerr

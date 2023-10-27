@@ -106,7 +106,7 @@ chrout_screen_del_column_0:
 	lda llen
 	sta PNTR
 	dec PNTR
-	
+
 	; Update PNT and USER pointers
 	jsr screen_calculate_PNT_USER
 

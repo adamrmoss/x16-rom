@@ -48,10 +48,10 @@
 	CR=13
 	DEL=$14
 	SPACE=$20
-	
+
 	SUCCESS=0
 	FAIL=1
-	
+
 	CHR_SPACE=32
 	SCR_LPAREN=40
 	SCR_RPAREN=41
@@ -62,7 +62,7 @@
 	SCR_ZERO=$30
 	SCR_ONE=$31
 	SCR_SPACE=' '
-	
+
 										  ; Function keys
 	KEY_STOP = $03
 	F1=$85
@@ -74,12 +74,12 @@
 	F7=$88
 	F8=$8c
 	F9=$8d
-	
+
 	CUR_UP=$91
 	CUR_DN=$11
 	CUR_LEFT=$9D
 	CUR_RIGHT=$1D
-	
+
    FB_GET_PIXELS      = $F002
    FB_CURSOR_POSITION = $FEFF
    FB_NEXT_LINE       = $FF02
@@ -107,16 +107,16 @@
 	PLOT    = $FFF0
 	MEMCOPY = $FEE7
 	MEMFILL = $FEE4
-	
+
 	;; RAM variabls, should extract from a SYM file produced by the kernal
 	BRK_VECTOR    = $0316
 	FETCH_VECTOR  = $03AF
 	STASH_VECTOR  = $03B2
 
 	;;
-	
+
 	JSRFAR_VECTOR = $FF6E
-	
+
 	MODE_80_60   = $00
 	MODE_80_30   = $01
 	MODE_40_60   = $02
@@ -127,7 +127,7 @@
 	MODE_320_240 = $80
 	MODE_640_400 = $81
 	MODE_SWAP    = $ff
-	
+
    .macro ExchW dst
    plx
    ply
@@ -148,7 +148,7 @@
 	beq    dst
 	:  
 	.endmacro
-	
+
 	.macro ifNe16 r1,r2,dst
 	lda    r1
 	cmp    r2
@@ -157,7 +157,7 @@
 	cmp    r2+1
 	bne    dst
 	.endmacro
-	
+
 										  ; http://www.6502.org/tutorials/compare_beyond.html
 										  ; 16 bit unsigned compare
 	.macro ifLT   v1,v2,then
@@ -170,7 +170,7 @@
 	bcc then  ; if NUM1L < NUM2L then NUM1 < NUM2
 	:  
 	.endmacro
-	
+
 										  ; 16 bit unsigned compare
 	.macro ifGE   v1,v2,then
 	lda v1+1   ; compare high bytes
@@ -182,7 +182,7 @@
 	bcs then   ; if NUM1L >= NUM2L then NUM1 >= NUM2
 	:  
 	.endmacro
-	
+
 										  ; 16 bit unsigned compare
 	.macro ifVGE   v1,v2,then
 	lda #>v1   ; compare high bytes
@@ -194,11 +194,11 @@
 	bcs then   ; if NUM1L >= NUM2L then NUM1 >= NUM2
 	:  
 	.endmacro
-	
+
 	.macro debugger
 	.byte $db   ; Debugger code for emulator R38
 	.endmacro
-	
+
 	;;
 	;; Call routine with r1 argument
 	;;
@@ -206,7 +206,7 @@
 	LoadW  r1,arg
 	jsr    routine
 	.endmacro
-	
+
 	;;
 	;; Call routine with r1 & r2 arguments
 	;;
@@ -215,7 +215,7 @@
 	LoadW  r2,arg2
 	jsr    routine
 	.endmacro
-	
+
 	;;
 	;; Call routine with r1, r2, & r3 arguments
 	;;
@@ -225,24 +225,24 @@
 	LoadW  r3,arg3
 	jsr    routine
 	.endmacro
-	
+
 	.macro jsrfar bank,addr
 	jsr    JSRFAR_VECTOR
 	.word  addr
 	.byte  bank
 	.endmacro
-	
+
 	.macro kerjsr addr
 	jsr    JSRFAR_VECTOR
 	.word  addr
 	.byte  BANK_KERNAL
 	.endmacro
-	
+
 	.macro aejsr addr
 	jsr    JSRFAR_VECTOR
 	.word  addr
 	.byte  BANK_CODEX
 	.endmacro
-	
+
 	.endif
-	
+

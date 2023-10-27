@@ -10,7 +10,7 @@
 chrout_screen_RETURN:
 
 	; RETURN clears quote and insert modes, it also clears reverse flag
-	
+
 	lda #$00
 	sta QTSW
 	sta INSRT
@@ -18,7 +18,7 @@ chrout_screen_RETURN:
 
 	; RETURN key moves cursor two lines down in case
 	; of first line of the extended logical line
-	
+
 	ldy TBLX
 	cpy nlinesm1
 	beq :+                             ; last line on screen - no need for a double line skip

@@ -30,7 +30,7 @@ chrout_screen:
 	bcs :+
 	cmp #$C0
 	bcc :+
-	
+
 	and #$7F
 	jmp chrout_screen_literal ; not high char
 

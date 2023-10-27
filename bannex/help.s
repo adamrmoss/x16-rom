@@ -37,7 +37,7 @@ uc_address = $42
 
 	pha
 	phy
-	
+
 	jsr printstring
 	.byte "COMMUNITY RELEASE R",0
 

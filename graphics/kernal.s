@@ -20,25 +20,25 @@
 .segment "GRAPH"
 
 kbdbuf_get:
-	jsr grjsrfar	
+	jsr grjsrfar
 	.word k_kbdbuf_get
 	.byte BANK_KERNAL
 	rts
 
 sprite_set_image:
-	jsr grjsrfar	
+	jsr grjsrfar
 	.word k_sprite_set_image
 	.byte BANK_KERNAL
 	rts
 
 sprite_set_position:
- 	jsr grjsrfar	
+    jsr grjsrfar
 	.word k_sprite_set_position
 	.byte BANK_KERNAL
 	rts
 
 bsout:
- 	jsr grjsrfar	
+    jsr grjsrfar
 	.word k_bsout
 	.byte BANK_KERNAL
 	rts

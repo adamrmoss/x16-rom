@@ -8,7 +8,7 @@
 	__ASSERT__=1
 
 	.code
-	
+
 	.macro pass test
 	   jsr     testPass
 	   callR1 prtstr,test
@@ -232,7 +232,7 @@ assertEqA_fail
 ;;
 assertEqR0Core
 	PushW   r0
-	
+
 	ldy     #COL_TEST_INDENT
 	jsr     prtindent
 
@@ -417,5 +417,5 @@ prtindent_loop
 passed_count       .word 0
 failed_count       .word 0
 total_count        .word 0
-	
+
 	.endif

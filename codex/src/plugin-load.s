@@ -11,9 +11,9 @@
 	.import  main_entry
 
 	.org     $a000
-	
+
 	.segment "PLUGIN"
 	.word    *
-	
+
 	jmp   main_entry
-	
+

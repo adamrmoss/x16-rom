@@ -23,7 +23,7 @@ chrout_screen_TAB_FW:
 	dey
 :
 	sty PNTR
-	
+
 	jmp chrout_screen_calc_lptr_done
 
 

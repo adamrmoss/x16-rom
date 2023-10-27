@@ -13,7 +13,7 @@
 	;; this list of conditions and the following disclaimer in the documentation
 	;; and/or other materials provided with the distribution.
 	;; 
-	;;	
+	;;
 	;;    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	;; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	;; LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -31,7 +31,7 @@
 
 	.export  main_entry
 ;;; -------------------------------------------------------------------------------------
-	
+
 	.code
 
 	.include "bank_assy.inc"
@@ -43,7 +43,7 @@
 	.include "vera.inc"
 	.include "kvars.inc"
 	.include "x16_kernal.inc"
-	
+
 	.include "assert.s"
 
 	MAX_ROW=58
@@ -72,7 +72,7 @@
 	sta    BANK_CTRL_RAM
 	.endmacro
 
-	
+
 main_entry
 	lda       K_TEXT_COLOR
 	sta       orig_color
@@ -109,7 +109,7 @@ main_entry
 	jsr       testMetaInstruction
 	jsr       testCodeReloc
 	jsr       testEncoder2
-	
+
 	jsr       print_summary
 	     
 	ldy       SCR_COL
@@ -141,7 +141,7 @@ str_is_not      .byte  "NOT A 65C02, TOO BAD", CR, 0
 str_cr          .byte  CR, 0
 
 ;; -------------------------------------------------------------------------------------
-	
+
 testUtility
 	callR1  testHeader,str_test_utility
 
@@ -257,7 +257,7 @@ str_acopy_back   .byte    "BACKWARD MEMCOPY IN $A000", CR, 0
 
 utility_buffer   .res 512,0
 	utility_dst = utility_buffer + $20
-	
+
 ;;
 ;; Check to make sure a series of bytes are correct
 assertCopyBlock
@@ -299,7 +299,7 @@ str_utility_block .byte "POST COPY BLOCK VERIFY", CR, 0
 
 ;; -------------------------------------------------------------------------------------
 
-	
+
 testPetsciiToScr
 	callR1 testHeader,str_petscii_to_scr
 
@@ -390,7 +390,7 @@ testPetsciiToScr
 
 	rts
 
-	
+
 str_blank_e0            .byte "BLANK - $E0", CR, 0
 str_ul_block            .byte "UL BLOCK ", $7e, CR, 0
 str_hline2_c0           .byte "HLINE - $C0", CR, 0
@@ -454,7 +454,7 @@ testBanks
 
 	rts
 
-	
+
 str_test_banks    .byte  "BANK CTRL TEST", CR, 0 
 str_bank_default  .byte  "BANK EXPECTED TO BE AT ONE", CR, 0
 str_push_pop      .byte  "PUSH POP BANK", CR, 0
@@ -565,7 +565,7 @@ dispatch_test_f6
 
 dispatch_set_value .byte 0
 
-	
+
 dispatch_table1
 	.word   dispatch_test_f1        ; F1
 	.word   dispatch_test_f3        ; F3
@@ -633,10 +633,10 @@ testTableDecoder
 	MoveW      r2,r1
 	jsr        decode_get_byte_count
 	assertEqA  2,str_test_byte_count
-	
+
 	jsr        decode_next_argument
 	assertEqR0 str_test_arg2
-	
+
 	;; Test remaining argument decoders
 	LoadW      r2,decoder_test_code_3
 	jsr        decode_next_argument
@@ -657,7 +657,7 @@ testTableDecoder
 	LoadW  r2,decoder_test_code_7
 	jsr   decode_next_argument
 	assertEqR0 str_test_arg7
-	
+
 	LoadW  r2,decoder_test_code_8
 	jsr   decode_next_argument
 	assertEqR0 str_test_arg8
@@ -686,7 +686,7 @@ testTableDecoder
 	;; can not be a hard coded string. 
 	stz   decoded_str_next
 	LoadW  M1,decoder_test_code_15 ; This is the target of code_14's branch, so get it's value
-	
+
 	jsr    decode_push_label_or_hex_core
 	;; Terminate the decoded_string
 	LoadW  r1,code_buffer
@@ -696,7 +696,7 @@ testTableDecoder
 
 	LoadW  r2,str_test_arg14
 	jsr    util_strcpy
-	
+
 	LoadW  r2,decoder_test_code_14
 	jsr   decode_next_argument
 	assertEqR0 str_test_arg14
@@ -786,7 +786,7 @@ decoder_test_code_18            ; Bug from 2019-12-10, no argument for "sta $00"
 
 ;; END TEST CODE
 
-	
+
 str_test_decoder    .byte  "TABLE DECODER TEST", CR, 0 
 str_test_byte_count .byte  "BYTE COUNT", CR, 0
 str_test_LDA        .byte  "LDA", 0
@@ -810,7 +810,7 @@ str_test_arg17      .byte  "???",0
 str_test_arg18      .byte  "$00",0
 
 str_test_arg14      .res   6,0
-	
+
 	.include "decoder_vars.inc"
 
 ;; -------------------------------------------------------------------------------------
@@ -821,7 +821,7 @@ str_test_arg14      .res   6,0
 	RTS_INSTRUCTION=$60
 	NOP_INSTRUCTION=$EA
 	BRA_INSTRUCTION=$80
-	
+
 testDebugStep
 	callR1     testHeader,str_debug_step
 
@@ -937,7 +937,7 @@ sdc_9    nop
 sdc_10   jmp   (sdc_ind,x)
 sdc_11   nop
 
-	
+
 sdc_ind  .word sdc_2
 	      .word sdc_5
 
@@ -1148,7 +1148,7 @@ testMetaAddDelete
 	LoadW      r1,$1234
 	jsr        meta_find_label
 	assertNeZ  str_meta_not_found1       ; Should not find the label
-	
+
 	;; Test to make sure the remaining labels are properly relocated
 	pushBankVar    bank_meta_l
 	LoadW          r1,$1000
@@ -1167,7 +1167,7 @@ testMetaAddDelete
 	       
 	rts
 
-	
+
 str_meta_test                .byte "META ADD DELETE", CR, 0
 str_meta_added1              .byte "META1 ADDED", CR, 0
 str_meta_added2              .byte "META2 ADDED", CR, 0
@@ -1190,9 +1190,9 @@ str_meta0                    .byte "META0", 0
 ;; This test only tests the encoder lookup. Also to reduce unit test size, the opcodes
 ;; from the mnemonic table are borrowed (rather than duplicating).
 ;;
-	
+
 	.include "encode.inc"
-	
+
 ;; -------------------------------------------------------------------------------------
 	.macro assertBuffer1 op,b1 
 	     bcc    :+
@@ -1277,10 +1277,10 @@ testEncoder
 
 	callR1            encode_string,str_cli1
 	assertBuffer1     str_cli1, $58
-	
+
 	callR1            encode_string,str_clv1
 	assertBuffer1     str_clv1, $b8
-	
+
 	callR1            encode_string,str_dex1
 	assertBuffer1     str_dex1, $ca
 
@@ -1319,7 +1319,7 @@ testEncoder
 
 	callR1            encode_string,str_ply1
 	assertBuffer1     str_ply1, $7a
-	
+
 	callR1            encode_string,str_rti1
 	assertBuffer1     str_rti1, $40
 
@@ -1334,7 +1334,7 @@ testEncoder
 
 	callR1            encode_string,str_sei1
 	assertBuffer1     str_sei1, $78
-	
+
 	callR1            encode_string,str_stp1
 	assertBuffer1     str_stp1, $db
 
@@ -1346,7 +1346,7 @@ testEncoder
 
 	callR1            encode_string,str_tsx1
 	assertBuffer1     str_tsx1, $ba
-	
+
 	callR1            encode_string,str_txa1
 	assertBuffer1     str_txa1, $8a
 
@@ -1382,7 +1382,7 @@ testEncoder
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer3     str_abs_arg, $0d, $47, $46
-	
+
 	;; Test zp,x
 	callR1            copyString,str_zp_x
 	callR1            encode_string,str_tmp
@@ -1424,38 +1424,38 @@ testEncoder
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer2     str_ind, $12, $4a
-	
+
 	;; 16 bit indirect
 	callR1            copyString,str_ind16
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer3     str_ind16, $6c, $52, $51
-	
+
 	;; Absolute indexed, indirect (just the JMP)
 	callR1            copyString,str_abs_x_ind
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer3     str_abs_x_ind, $7c, $54, $53
-	
+
 	;; Branch addressing
 	LoadW             encode_pc,$a000
 	callR1            copyString,str_branch
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer2     str_branch, $80, $0e
-	
+
 	LoadW             encode_pc,$a020
 	callR1            copyString,str_branch
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer2     str_branch, $80, $ee
-	
+
 	;; Test the goofy bit instructions
 	callR1            copyString,str_bit_zp
 	callR1            encode_string,str_tmp
 	assertCarryClear  str_no_fail_arg
 	assertBuffer2     str_bit_zp, $b7, $02
-	
+
 	LoadW             encode_pc,$a000
 	callR1            copyString,str_bit_rel
 	callR1            encode_string,str_tmp
@@ -1477,13 +1477,13 @@ testEncoder
 @testEncoderMnemonicExit
 	rts
 
-	
+
 ;; Single byte opcodes
 str_encode_cr     .byte     CR,0
 str_encode_count  .byte     "ENCODE BYTE COUNT ", 0
 str_encode_buffer .byte     "ENCODE BUFFER VALUE ", 0
 str_complete_fail .byte     "COMPLETE DECODE FAIL", CR, 0
-	
+
 str_brk1          .byte     "BRK", 0
 str_clc1          .byte     "CLC", 0
 str_cld1          .byte     "CLD", 0
@@ -1520,7 +1520,7 @@ str_wai1          .byte     "WAI", 0
 str_brk_bad_arg   .byte     "BRK #42", 0      ; Yep, this is bad syntax!
 str_bad_arg_msg   .byte     "DETECT INVALID ARGUMENT", CR, 0
 str_no_fail_arg   .byte     "ARGUMENT PARSED", CR, 0
-str_no_fail_jmp_ind .byte     "JMP ($2) PARSE", CR, 0	
+str_no_fail_jmp_ind .byte     "JMP ($2) PARSE", CR, 0
 str_immed_arg     .byte     "ORA #$43", 0
 str_zp_arg        .byte     "ORA $45", 0
 str_abs_arg       .byte     "ORA $4647", 0
@@ -1548,7 +1548,7 @@ str_jmp_ind       .byte     "JMP ($2)", 0
 testEncoderBufferAssert
 	phx
 	MoveW   r1,T1
-	
+
 	cpx   encode_buffer_size
 	beq   :+
 	jsr   testFail
@@ -1560,7 +1560,7 @@ testEncoderBufferAssert
 	MoveW    T1,r1
 	jsr      prtstr
 	callR1   prtstr,str_buffer_count
-	
+
 	plx
 	;;
 	;; Buffer test [0]
@@ -1606,12 +1606,12 @@ testEncoderBufferAssert
 @testEncoderBufferName
 	MoveW    T1,r1
 	jsr      prtstr
-	
+
 @testEncoderBufferExit
 	callR1   prtstr,str_encode_cr
 	rts
 
-	
+
 str_buffer_count  .byte " BUFFER_COUNT", CR, 0
 str_buffer_0      .byte "BUFFER[0] ", 0
 str_buffer_1      .byte "BUFFER[1] ", 0
@@ -1620,7 +1620,7 @@ str_buffer_pass   .byte "BUFFER[] ", CR, 0
 ;;
 ;;
 ;;
-	
+
 testEncoderPrintInstruction
 	ldy               #0
 @testEncoderMenmonicPrtinstLoop
@@ -1633,7 +1633,7 @@ testEncoderPrintInstruction
 	bne               @testEncoderMenmonicPrtinstLoop
 	rts
 
-	
+
 str_encoder_test   .byte  "ENCODER OPCODE LOOKUP",CR,0
 str_encoder_unk    .byte  "FOO",CR,0
 str_encoder_found  .byte  "INSTRUCTION FOUND: ", 0
@@ -1644,69 +1644,69 @@ str_encoder_cr     .byte  CR,0
 
 testEncoder2
 	callR1      testHeader,str_encoder_2
-	
+
 	;; ----- Test 1
 	jsr            clear_encode_buffer
 	LoadW          encode_pc,$1000
 	callR1         copyString,str_encode2_byte
 	callR1         encode_string,str_tmp
 	assertCarryClear  str_encode2_encoded
-	
+
 	lda            encode_buffer_size
 	assertEqA      1,str_encode2_byte_count
 	assertBuffer1  str_encode2_buffer_val,$42
-	
+
 	LoadW          r1,$1000
 	jsr            meta_find_expr
 	assertEqZ      str_encode2_found_expr
-	
+
 	LoadW          r1,$1000
 	jsr            meta_delete_expr
 	jsr            meta_find_expr
 	assertNeZ      str_encode2_delete_expr
-	
+
 	;; ----- Test 2
 	jsr            clear_encode_buffer
 	callR1         copyString,str_encode2_byte2
 	callR1         encode_string,str_tmp
 	assertCarryClear  str_encode2_encoded
-	
+
 	lda            encode_buffer_size
 	assertEqA      3,str_encode2_byte_count
 	assertBuffer3  str_encode2_buffer_val,$1,$2,$3
-	
+
 	;; ----- Test 3
 	jsr            clear_encode_buffer
 	callR1         copyString,str_encode2_word
 	callR1         encode_string,str_tmp
 	assertCarryClear  str_encode2_encoded
-	
+
 	lda            encode_buffer_size
 	assertEqA      6,str_encode2_byte_count
 	LoadW          T1,code_buffer
 	lda            (T1)
 	assertEqA      $34,str_encode2_buffer_wal
-	
+
 	ldy            #1
 	lda            (T1),y
 	assertEqA      $12,str_encode2_buffer_wal
-	
+
 	ldy            #2
 	lda            (T1),y
 	assertEqA      $cd,str_encode2_buffer_wal
-	
+
 	ldy            #3
 	lda            (T1),y
 	assertEqA      $ab,str_encode2_buffer_wal
-	
+
 	ldy            #4
 	lda            (T1),y
 	assertEqA      $04,str_encode2_buffer_wal
-	
+
 	ldy            #5
 	lda            (T1),y
 	assertEqA      $02,str_encode2_buffer_wal
-	
+
 	;; ----- Test 4
 	jsr            clear_encode_buffer
 	callR1         copyString,str_encode2_cstr
@@ -1715,22 +1715,22 @@ testEncoder2
 	lda             encode_buffer_size
 	assertEqA       4,str_encode2_byte_count
 	LoadW           T1,code_buffer
-	
+
 	lda               (T1)
 	assertEqA         'F',str_encode2_buffer_cstr
-	
+
 	ldy               #1
 	lda               (T1),y
 	assertEqA         'O',str_encode2_buffer_cstr
-	
+
 	ldy               #2
 	lda               (T1),y
 	assertEqA         'O',str_encode2_buffer_cstr
-	
+
 	ldy               #3
 	lda               (T1),y
 	assertEqA         0,str_encode2_buffer_cstr
-	
+
 	;; ----- Test 5
 	jsr            clear_encode_buffer
 	callR1         copyString,str_encode2_pstr
@@ -1739,24 +1739,24 @@ testEncoder2
 	lda             encode_buffer_size
 	assertEqA       4,str_encode2_byte_count
 	LoadW           T1,code_buffer
-	
+
 	lda               (T1)
 	assertEqA         3,str_encode2_buflen_pstr
-	
+
 	ldy               #1
 	lda               (T1),y
 	assertEqA         'B',str_encode2_buffer_pstr
-	
+
 	ldy               #2
 	lda               (T1),y
 	assertEqA         'A',str_encode2_buffer_pstr
-	
+
 	ldy               #3
 	lda               (T1),y
 	assertEqA         'R',str_encode2_buffer_pstr
 	rts
-	
-	
+
+
 str_encoder_2           .byte "PSEUDO ENCODE", CR, 0
 str_encode2_byte        .byte ".BYTE $42", 0
 str_encode2_encoded     .byte "ENCODED PSEUDO OP", CR, 0
@@ -1786,7 +1786,7 @@ clear_encode_buffer
 	sta            (r1),y
 	dey
 	bpl            @clear_encode_buffer_loop
-	
+
 	rts
 
 ;; -------------------------------------------------------------------------------------
@@ -1795,7 +1795,7 @@ clear_encode_buffer
 testUtility2
 	LoadW       T2,3
 	callR1      testHeader,str_util_test
-	
+
 	;;
 	;; Test 16 bit compare macro
 	;;
@@ -1803,7 +1803,7 @@ testUtility2
 	LoadW      r1,$0100
 	LoadW      r2,$FFFF
 	ifLT       r1,r2,@lt_pass
-	
+
 	fail       str_lt_macro
 	bra        :+
 @lt_pass
@@ -1814,7 +1814,7 @@ testUtility2
 	LoadW      r1,$FFFF
 	LoadW      r2,$0100
 	ifLT       r1,r2,@lt_fail
-	
+
 	pass       str_lt_macro
 	bra        :+
 @lt_fail
@@ -1825,7 +1825,7 @@ testUtility2
 	LoadW      r1,$0100
 	LoadW      r2,$FFFF
 	ifGE       r1,r2,@ge_fail
-	
+
 	pass       str_ge_macro
 	bra        :+
 @ge_fail
@@ -1835,7 +1835,7 @@ testUtility2
 	LoadW      r1,$FFFF
 	LoadW      r2,$0100
 	ifGE       r1,r2,@ge_pass
-	
+
 	fail       str_ge_macro
 	bra        :+
 @ge_pass
@@ -1847,7 +1847,7 @@ testUtility2
 	;;
 	callR1      util_trim_string,str_util_trimee
 	assertEqR1  str_util_trimmed
-	
+
 	callR1      copyString,str_util_trimmed
 	LoadW       r1,str_tmp
 	lda         #' '
@@ -1855,7 +1855,7 @@ testUtility2
 	assertEqR1  str_util_trimmed1
 	MoveW       r2,r1
 	assertEqR1  str_util_trimmed2
-	
+
 	callR1      copyString,str_util_trimmed_comma
 	LoadW       r1,str_tmp
 	lda         #','
@@ -1863,30 +1863,30 @@ testUtility2
 	assertEqR1  str_util_trimmed_comma1
 	MoveW       r2,r1
 	assertEqR1  str_util_trimmed_comma2
-	
+
 	LoadW       r1,str_util_contains_comma
 	ldx         #','
 	jsr         util_str_contains
 	assertEqZ   str_util_contains_comma
 	callR1      prtstr,str_cr
-	
+
 	LoadW       r1,str_util_not_contains
 	ldx         #' '
 	jsr         util_str_contains
 	assertNeZ   str_util_not_contains
 	callR1      prtstr,str_cr
-	
+
 	callR1R2    util_ends_with,str_end_test,str_suffix1
 	pha
 	assertEqZ   str_suffix1
 	callR1      prtstr,str_cr
 	pla
 	assertEqA   11,str_end_length_msg             ; Length of str_end_test
-	
+
 	callR1R2    util_ends_with,str_end_test,str_suffix2
 	assertNeZ   str_suffix2
 	callR1      prtstr,str_cr
-	
+
 	;;
 	;; Strcmp
 	;;
@@ -1894,19 +1894,19 @@ testUtility2
 	LoadW       r2,str_hex2
 	jsr         util_strcmp
 	assertEqZ   str_strcmp_eq
-	
+
 	LoadW       r2,str_hex3
 	jsr         util_strcmp
 	assertNeZ   str_strcmp_eq
-	
+
 	jsr         util_strcmp
 	assertEqA   $1,str_strcmp_lt
-	
+
 	LoadW       r1,str_hex3
 	LoadW       r2,str_hex2
 	jsr         util_strcmp
 	assertEqA   $ff,str_strcmp_gt
-	
+
 	;;
 	;; Hex parsing
 	;;
@@ -1918,7 +1918,7 @@ testUtility2
 	PopW        r1
 	lda         r1H
 	assertEqA   $12,str_hex1_msg
-	
+
 	;; Hex2
 	callR1      util_parse_hex,str_hex2
 	PushW       r1
@@ -1927,18 +1927,18 @@ testUtility2
 	PopW        r1
 	lda         r1H
 	assertEqA   $ab,str_hex2_msg
-	
+
 	;; Hex3
 	callR1      util_parse_hex,str_hex3
 	assertCarrySet  str_hex3_msg
-	
+
 	;; Hex4
 	callR1      util_parse_hex,str_hex4
 	assertCarrySet  str_hex4_msg
-	
+
 	rts
-	
-	
+
+
 str_util_test     .byte "UTILITY ROUTINES 2", CR, 0
 str_util_trimee   .byte "    ABC TRIM TEST 123     ", 0
 str_util_trimmed  .byte "ABC TRIM TEST 123", 0
@@ -1974,7 +1974,7 @@ str_strcmp_lt     .byte "STRCMP <", CR, 0
 str_strcmp_gt     .byte "STRCMP >", CR, 0
 
 str_tmp           .res 64,0
-	
+
 ;;
 ;; Copy source in r1 to str_tmp
 copyString
@@ -1990,34 +1990,34 @@ copyString
 	rts
 	      
 ;; -------------------------------------------------------------------------------------
-	
+
 	.include "edit.inc"
 	.include "meta_i.inc"
-	
+
 	EDIT_RGN_SIZE=64
 	     
 testCodeEdit
 	callR1     testHeader,str_edit_header
-	
+
 	jsr        testClearEditRgn
-	
+
 	callR1     meta_clear_meta_data,edit_region_start
-	
+
 	LoadW      r1,edit_region_start
 	ldx        #3
 	jsr        edit_insert
-	
+
 	;; Edit test 1
 	pushBankVar    bank_meta_l
 	LoadW      TMP1,edit_region_start+2
-	
+
 	lda        meta_rgn_end
 	sta        TMP2L
 	lda        meta_rgn_end+1
 	sta        TMP2H
 	assertEq16  TMP1,TMP2,str_rgn_end_adjust
 	popBank
-	
+
 	LoadW      r1,edit_region_start
 	ldy        #2
 @push1
@@ -2027,12 +2027,12 @@ testCodeEdit
 	dey
 	cpy        #$ff
 	bne        @push1
-	
+
 	;; Add 3 new bytes
 	LoadW      r1,edit_region_start
 	ldx        #3
 	jsr        edit_insert
-	
+
 	;; Edit test 2, make sure the push moved existing bytes
 	LoadW      T1,edit_region_start
 	ldy        #3
@@ -2044,46 +2044,46 @@ testCodeEdit
 	ldy        #5
 	lda        (T1),y
 	assertEqA  3,str_push_value
-	
+
 	;; Edit test 3, do delete and make sure region ends are modified AND bytes are copied
 	LoadW      r1,edit_region_start
 	ldx        #2
 	jsr        edit_delete
-	
+
 	pushBankVar    bank_meta_l
 	lda        meta_rgn_end
 	sta        TMP2L
 	lda        meta_rgn_end+1
 	sta        TMP2H
-	
+
 	lda        #<(edit_region_start+3)
 	sta        TMP1L
 	lda        #>(edit_region_start+3)
 	sta        TMP1H
 	assertEq16  TMP1,TMP2,str_rgn_end_adjust
 	popBank
-	
+
 	;; Edit test 4, make sure the bottom of the block is pulled up.
 	LoadW      TMP1,edit_region_start
 	ldy        #0
 	lda        (TMP1),y
 	assertEqA  3,str_pull_value
-	
+
 	ldy        #1
 	lda        (TMP1),y
 	assertEqA  1,str_pull_value
-	
+
 	ldy        #2
 	lda        (TMP1),y
 	assertEqA  2,str_pull_value
-	
+
 	ldy        #3
 	lda        (TMP1),y
 	assertEqA  3,str_pull_value
-	
+
 	rts
-	
-	
+
+
 str_edit_header    .byte "CODE EDIT", CR, 0
 str_rgn_end_adjust .byte "REGION END ADJUSTMENT", CR, 0
 str_push_value     .byte "INSERT COPY VALUES", CR, 0
@@ -2103,34 +2103,34 @@ testClearEditRgn
 	dey
 	cpy        #$ff
 	bne        @clear
-	
+
 	rts
 
 ;; -------------------------------------------------------------------------------------
 	     
 testCodeReloc
 	callR1     testHeader,str_reloc_header
-	
+
 	jsr        testClearEditRgn
-	
+
 	callR1     meta_clear_meta_data,edit_region_start
-	
+
 	LoadW      r1,edit_region_start
 	ldx        #1
 	jsr        edit_insert
-	
+
 	lda        #RTS_INSTRUCTION
 	sta        (r1)
-	
+
 	LoadW      r1,edit_region_start
 	LoadW      r2,str_reloc_main
 	jsr        meta_add_label
-	
+
 	;; Add a JMP MAIN
 	LoadW      r1,edit_region_start
 	LoadW      r2,(edit_region_start+3)
 	jsr        test_add_jmp
-	
+
 	LoadW      r1,str_reloc_insert
 	LoadW      r2,edit_region_start
 	lda        #JMP_INSTRUCTION
@@ -2140,12 +2140,12 @@ testCodeReloc
 	lda        #>(edit_region_start+3)
 	sta        r4L
 	jsr        test_reloc_assert
-	
+
 	;; Add another jump, make sure relocation for ABS processes
 	LoadW      r1,edit_region_start
 	LoadW      r2,(edit_region_start+6)
 	jsr        test_add_jmp
-	
+
 	LoadW      r1,str_reloc_insert
 	LoadW      r2,edit_region_start
 	lda        #JMP_INSTRUCTION
@@ -2155,21 +2155,21 @@ testCodeReloc
 	lda        #>(edit_region_start+6)
 	sta        r4L
 	jsr        test_reloc_assert
-	
+
 	LoadW      r2,(edit_region_start+3)
 	jsr        test_reloc_assert
-	
+
 	;; -----------------------------------------------------
 	;; Relative addressing
 	;; -----------------------------------------------------
 	jsr        testClearEditRgn
-	
+
 	;; back branch
 	callR1     meta_clear_meta_data,edit_region_start
 	LoadW      r1,edit_region_start
 	ldx        #3
 	jsr        edit_insert              ; So region begin and end are properly set
-	
+
 	LoadW      r1,edit_region_start
 	ldy        #0
 	lda        #NOP_INSTRUCTION
@@ -2180,7 +2180,7 @@ testCodeReloc
 	iny
 	lda        #$FD
 	sta        (r1),y
-	
+
 	;; Insert NOP in between branch and target
 	LoadW      r1,edit_region_start+1
 	ldx        #1
@@ -2188,26 +2188,26 @@ testCodeReloc
 	ldy        #2                                ; Because r1 = insert point
 	lda        (r1),y
 	assertEqA  $fc,str_reloc_rel_1
-	
+
 	;; fwd branch
 	callR1     meta_clear_meta_data,edit_region_start
 	LoadW      r1,edit_region_start
 	ldx        #3
 	jsr        edit_insert              ; So region begin and end are properly set
-	
+
 	LoadW      r1,edit_region_start
 	ldy        #0
 	lda        #BRA_INSTRUCTION
 	sta        (r1),y
 	iny
-	
+
 	lda        #0
 	sta        (r1),y
 	iny
-	
+
 	lda        #NOP_INSTRUCTION
 	sta        (r1),y
-	
+
 	;; insert NOP between branch and target
 	LoadW      r1,edit_region_start+2
 	ldx        #1
@@ -2215,10 +2215,10 @@ testCodeReloc
 	LoadW      r1,edit_region_start+1
 	lda        (r1)
 	assertEqA  1,str_reloc_rel_1
-	
+
 	rts
 
-	
+
 str_reloc_header  .byte "CODE RELOCATION", CR, 0
 str_reloc_main    .byte "MAIN", 0                      ; This is a label, no CR!
 str_reloc_insert  .byte "JMP INSERTED", CR, 0
@@ -2234,7 +2234,7 @@ test_add_jmp
 	ldx        #3
 	jsr        edit_insert
 	PopW       r2
-	
+
 	ldy        #0
 	lda        #JMP_INSTRUCTION
 	sta        (r1),y
@@ -2245,7 +2245,7 @@ test_add_jmp
 	lda        r2H
 	sta        (r1),y
 	rts
-	
+
 ;;
 ;; composite assert to make sure inserted memory is correct
 ;; Input r1 - msg
@@ -2257,17 +2257,17 @@ test_reloc_assert
 	lda         (r2),y
 	cmp         r3L
 	bne         @test_reloc_fail
-	
+
 	iny
 	lda         (r2),y
 	cmp         r3H
 	bne         @test_reloc_fail
-	
+
 	iny
 	lda         (r2),y
 	cmp         r4L
 	bne         @test_reloc_fail
-	
+
 	jsr         testPass
 	jsr         prtstr
 	rts
@@ -2281,16 +2281,16 @@ test_reloc_assert
 	     
 testMetaInstruction
 	callR1       testHeader,str_meta_instruction
-	
+
 	jsr          meta_clear_meta_data
-	
+
 	LoadW        r2,$1000
 	callR1       encode_parse_expression,str_expr_constant
 	LoadW        T1,$1234
 	assertEq16   r1,T1,str_meta_constant
 	callR1       meta_find_expr,$1000
 	assertNeZ    str_expr_found
-	
+
 	;; >$1234
 	LoadW        encode_pc,$1010
 	callR1       encode_parse_expression,str_expr_hi_constant
@@ -2300,14 +2300,14 @@ testMetaInstruction
 	beq          :+
 	fail         str_expr_found
 	bra          :++
-	
+
 :
 	LoadW        r2,$1010
 	LoadW        r3,$1234
 	lda          #META_FN_HI_BYTE
 	sta          r4L
 	jsr          assertExpr
-	
+
 :  
 	;; <$1234
 	LoadW        encode_pc,$1020
@@ -2318,22 +2318,22 @@ testMetaInstruction
 	beq          :+
 	fail         str_expr_found
 	bra          :++
-	
+
 :  
 	LoadW        r2,$1020
 	LoadW        r3,$1234
 	lda          #META_FN_LO_BYTE
 	sta          r4L
 	jsr          assertExpr         
-	
+
 :  
 
 	callR1       meta_find_expr,$1010
 	assertEqZ    str_expr_found
-	
+
 	callR1       meta_find_expr,$1000
 	assertNeZ    str_expr_found
-	
+
 	;; Check label parsing on instructions
 	LoadW        r2,$1234
 	callR1       meta_add_label,str_expr_label_value
@@ -2346,7 +2346,7 @@ testMetaInstruction
 	assertCarryClear  str_expr_label_valid
 	rts
 
-	
+
 str_meta_instruction .byte "META INSTRUCTION", CR, 0
 str_meta_constant    .byte "MATCH $1234", CR, 0
 str_expr_constant    .byte "$1234", 0
@@ -2370,7 +2370,7 @@ str_expr_label_valok .byte "LABEL VALUE OK", CR, 0
 ;;       r4L - expression function
 assertExpr
 	pushBankVar    bank_meta_i
-	
+
 	                             ;; Test address
 	ldy          #0
 	lda          (r1),y
@@ -2380,7 +2380,7 @@ assertExpr
 	sta          TMP1H
 	PushW        r1
 	assertEq16   TMP1,r2,str_expr_addr_match
-	
+
 	;; Test function
 	PopW         r1
 	PushW        r1
@@ -2403,7 +2403,7 @@ assertExpr
 	lda          (r1),y
 	sta          TMP1H
 	assertEq16   r3,TMP1,str_expr_value_match
-	
+
 	popBank
 	rts
 
@@ -2413,57 +2413,57 @@ assertExpr
 
 testScrollback
 	callR1       testHeader,str_scrollback
-	
+
 	jsr          screen_clear_scrollback
-	
+
 	;; -----
 	;; test 1
 	LoadW        r1,$6000
 	jsr          screen_get_prev_scrollback_address
 	assertCarrySet  str_sb_not_found
-	
+
 	;; -----
 	;; test 2
 	LoadW        r1,$6000
 	jsr          screen_add_scrollback_address
 	assertCarryClear  str_sb_added
-	
+
 	jsr          screen_get_prev_scrollback_address
 	assertCarryClear   str_sb_found
 	LoadW            T1,$6000
 	assertEq16       r0,T1,str_sb_address
-	
+
 	;; -----
 	;; test 2.5
 	jsr          screen_clear_scrollback
-	
+
 	LoadW        r1,$6000   
 	jsr          screen_add_scrollback_address
 	assertCarryClear  str_sb_added
-	
+
 	LoadW        r1,$6003
 	jsr          screen_add_scrollback_address
 	assertCarryClear  str_sb_added
-	
+
 	jsr          screen_get_prev_scrollback_address
 	assertCarryClear  str_sb_found
 	LoadW        T1,$6003
 	assertEq16   r0,T1,str_sb_address
-	
+
 	jsr          screen_get_prev_scrollback_address
 	assertCarryClear  str_sb_found
-	
+
 	LoadW        T1,$6000
 	assertEq16   r0,T1,str_sb_address
-	
+
 	jsr          screen_get_prev_scrollback_address
 	assertCarrySet  str_sb_not_found
-	
+
 	;; ----
 	;; test 3, ensure the scrollback buffer doesn't overflow and it will internally scroll.
 	jsr          screen_clear_scrollback
 	LoadW        T1,SCROLLBACK_COUNT+1
-	
+
 	;; prep
 	;; Fill sb stack with capacity+1
 @sb_test_3_loop
@@ -2473,7 +2473,7 @@ testScrollback
 	lda          T1L
 	ora          T1H
 	bne          @sb_test_3_loop
-	
+
 	;; test
 	;; drain the stack, last item should be SCROLLBACK_COUNT
 @sb_test_3_loop2
@@ -2481,12 +2481,12 @@ testScrollback
 	bcc          @sb_test_3_loop2
 	LoadW        T1,SCROLLBACK_COUNT
 	assertEq16   r0,T1,str_sb_overflow
-	
+
 	;; ----
 	;; test 7, ensure that the scrollback buffer rolls
 	rts
 
-	
+
 str_scrollback        .byte "SCROLLBACK", CR, 0
 str_sb_not_found      .byte "SCROLLBACK NOT FOUND", CR, 0
 str_sb_found          .byte "SCROLLBACK FOUND", CR, 0
@@ -2505,21 +2505,21 @@ str_sb_overflow       .byte "SCROLLBACK OVERFLOW", CR, 0
 ;;
 color_bars
 	jsr     clear
-	
+
 	lda     #0
 	sta     r3L
-	
+
 	vgotoXY   1,5
-	
+
 color_bars_loop
 	ldx     r3L
 	jsr     prthex
-	
+
 	lda     #CHR_SPACE
 	sta     VERA_DATA1
 	lda     #0
 	sta     VERA_DATA1
-	
+
 	lda     r3L
 	asl
 	asl
@@ -2527,29 +2527,29 @@ color_bars_loop
 	asl
 	ora     r3L
 	tax
-	
+
 	lda     #CHR_SPACE
 	sta     VERA_DATA1
 	stx     VERA_DATA1
-	
+
 	sta     VERA_DATA1
 	stx     VERA_DATA1
-	
+
 	sta     VERA_DATA1
 	stx     VERA_DATA1
-	
-	
+
+
 	lda     #1
 	sta     SCR_COL
 	inc     SCR_ROW
 	inc     SCR_ROW
 	vgoto
-	
+
 	inc     r3L
 	lda     r3L
 	cmp     #$10
 	bmi     color_bars_loop
-	
+
 	rts
 
 ;;
@@ -2557,18 +2557,18 @@ color_bars_loop
 ;;
 pager
 	phy
-	
+
 	lda     SCR_ROW
 	cmp     #MAX_ROW
 	bmi     pager_exit
-	
+
 	lda     r1H
 	pha
 	lda     r1L
 	pha
-	
+
 	vgotoXY  0,MAX_ROW+1
-	
+
 	LoadW    r1,str_press_any
 	ldy      #0
 
@@ -2583,14 +2583,14 @@ pager_prt_loop
 pager_wait
 	jsr     GETIN
 	beq     pager_wait
-	
+
 	lda     #CLS
 	jsr     CHROUT
-	
+
 	vgotoXY  0,0
-	
+
 	callR1  prtstr,str_continuing
-	
+
 	pla
 	sta     r1L
 	pla
@@ -2647,7 +2647,7 @@ print_summary
 	stz   SCR_COL
 	inc   SCR_ROW
 	vgoto
-	
+
 	;; Print passed count
 	lda     orig_color
 	sta     K_TEXT_COLOR
@@ -2657,25 +2657,25 @@ print_summary
 	lda   #'/'
 	charOutA
 	callR1  prtdec,total_count
-	
+
 	stz   SCR_COL
 	inc   SCR_ROW
 	vgoto
-	
+
 	;; print failed count
 	lda     #COLOR_CDR_FAIL
 	jsr     screen_set_fg_color
-	
+
 	callR1  prtstr,str_test_failed
 	callR1  prtdec,failed_count
 	lda   #'/'
 	charOutA
 	callR1 prtdec,total_count
-	
+
 	stz   SCR_COL
 	inc   SCR_ROW
 	vgoto
-	
+
 	rts
 
 ;;
@@ -2690,25 +2690,25 @@ prtdec
 	lda   (r1),y
 	sta   BIN+1
 	jsr   binbcd16
-	
+
 	lda   #0
 	sta   prtdec_prt_zeros
-	
+
 	lda   BCD+2
 	jsr   prtdec_digit
-	
+
 	lda   BCD+1
 	jsr   prtdec_digit
-	
+
 	lda   BCD
 	jsr   prtdec_digit
-	
+
 	lda   prtdec_prt_zeros
 	bne   prtdec_skip
-	
+
 	lda   #'0'
 	charOutA
-	
+
 prtdec_skip
 	rts
 
@@ -2753,7 +2753,7 @@ prtdec_digit_2_skip
 ;;
 ;;
 
-	
+
 str_version          .byte      "CODEX16 TEST DRIVER 2021-03-31", CR, CR
 str_test             .byte      CR, "TEST: ", 0 
 str_test_passed      .byte      "PASSED: ", 0
@@ -2767,7 +2767,7 @@ str_unexpected_value .byte      " UNEXPECTED VALUE: $", 0
 str_press_any        .byte      "PRESS ANY KEY...", 0
 str_continuing       .byte      "CONTINUING", CR, CR, 0
 
-	
+
 	.include "screen_vars.inc"
 	.include "encode_vars.inc"
  

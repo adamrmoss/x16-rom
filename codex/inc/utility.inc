@@ -10,5 +10,5 @@
 
 	.import util_trim_string, util_strcpy, util_strcmp, util_parse_hex
 	.import util_ends_with, util_split_string, util_str_contains, util_strlen
-	
+
 	.endif

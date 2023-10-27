@@ -11,7 +11,7 @@
 
 
 chrout_screen_STOP:
-	
+
 	lda #$00
 	sta QTSW
 	sta INSRT

@@ -60,7 +60,7 @@ chrout_try_color_loop:
 	ora COLOR
 	sta COLOR
 	jmp chrout_screen_done
-:	
+:
 	dex
 	bpl chrout_try_color_loop
 

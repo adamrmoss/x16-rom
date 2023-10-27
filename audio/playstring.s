@@ -353,7 +353,7 @@ check_notelen:
 	rol playstring_notelen
 	dey
 	bne @l1
-	
+
 @nonum:
 	; now check for dots
 	lda playstring_notelen
@@ -578,7 +578,7 @@ stopped:
 
 	sta playstring_len
 	stz playstring_pos
-	
+
 	; azp0 now points to our note string
 noteloop:
 	jsr parsestring
@@ -597,7 +597,7 @@ noteloop:
 	ldy #0
 	jsr notecon_midi2fm
 
-	clc	
+	clc
 	lda playstring_voice
 	jsr ym_playnote
 	bra advance_voice
@@ -672,7 +672,7 @@ instrument:
 	sta playstring_len
 	stz playstring_pos
 	stz playstring_ymcnt
-	
+
 	; azp0 now points to our note string
 noteloop:
 	jsr parsestring
@@ -692,7 +692,7 @@ noteloop:
 	tax
 	ldy #0
 	jsr notecon_midi2fm
-	
+
 	; if legato, skip retrigger, unless it's the first note
 
 	clc ; set up no trigger state
@@ -789,7 +789,7 @@ instrument:
 
 	sta playstring_len
 	stz playstring_pos
-	
+
 	; azp0 now points to our note string
 noteloop:
 	jsr parsestring
@@ -871,7 +871,7 @@ instrument:
 	sta playstring_len
 	stz playstring_pos
 	stz playstring_delayrem
-	
+
 	; azp0 now points to our note string
 noteloop:
 	jsr parsestring

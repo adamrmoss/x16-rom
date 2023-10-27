@@ -16,7 +16,7 @@ cint_legacy: ; $E518
 
 	; Setup video and I/O
 	; See here: https:;csdb.dk/forums/index.php?roomid=11&topicid=17048&firstpost=22
- 	jsr screen_init
+    jsr screen_init
 	lda #2          ;80x60
 ;	lda #0          ;40x30
 	clc

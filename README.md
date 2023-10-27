@@ -264,7 +264,7 @@ This is the first release of x16-rom by the X16Community team
 	* Fix for line delete crash [stefan-b-jakobsson]
 	* Fix for build under latest cc65 [mooinglemur]
 * GEOS
-	* Fix mouse issues [stefan-b-jakobsson]	
+	* Fix mouse issues [stefan-b-jakobsson]
 * Documentation
 	* Improve README.md [mobluse]
 * Build
@@ -506,7 +506,7 @@ This is the first release of x16-rom by the X16Community team
 
 * KERNAL Features
 	* invert fg/bg color control code (Ctrl+A) [Daniel Mecklenburg Jr]
-	
+
 * BASIC
 	* added `COLOR <fg, bg>` statement to set text color
 	* added `JOY(n)` function (arg 1 for joy1, arg 2 for joy2)

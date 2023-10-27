@@ -29,7 +29,7 @@ load_address_h:
 hexnum:
 	.res 1 ;for writing a hexidecimal or BCD number to screen
 temp:
-	.res 1 ;	
+	.res 1 ;
 data_source:
 	.res 1 ;0=system 1=vram 2=i2c
 line_render:
@@ -125,7 +125,7 @@ util_hexedit:
 	sty screen_height ;get current screen dimensions
 	;Verify screen mode
 	cpx #32   ;32 columns minimum required
-	bcs scok1	
+	bcs scok1
 	jsr display_screen_error
 	rts
 scok1:	jsr set_hex_columns
@@ -165,9 +165,9 @@ usin1:	cmp key_table,x
 	beq user_key_found
 	inx
 	cpx #23 ;number of keys in table.
-	bne usin1	
+	bne usin1
 	jmp user_input ;key not recognized
-user_key_found:	
+user_key_found:
 	txa
 	asl
 	tax
@@ -236,7 +236,7 @@ zfa1:	;setup selection
 	sta select_end_l
 	sta select_end_h
 	;clear the area
-	jmp zero_file_ram	
+	jmp zero_file_ram
 
 zero_selection:
 	;First see if a selection is active
@@ -265,7 +265,7 @@ zero_file_ram:
 	lda select_begin_h
 	sta source_h
 	and #%00011111
-	clc	
+	clc
 	adc #$a0
 	sta temp_h
 	lda select_begin_h
@@ -279,7 +279,7 @@ zero_file_ram:
 	ldy #0
 	;zero the byte out
 zfr1:	lda #0
-	sta (temp_l),y	
+	sta (temp_l),y
 	;Check if we've finished
 	lda source_h
 	cmp select_end_h
@@ -317,7 +317,7 @@ zsr1:	lda #0
 	;Check if we've reached the end
 	lda source_h
 	cmp select_end_h
-	bne zsr3	
+	bne zsr3
 	lda source_l
 	cmp select_end_l
 	bne zsr3
@@ -332,7 +332,7 @@ zsr3:	;advance to next memory location
 
 zero_vram:
 	lda #%00010000
-	clc	
+	clc
 	adc bank_sel
 	sta VERA_ADDR_H
 	lda select_begin_h
@@ -422,7 +422,7 @@ return:
 	stz cursor_x
 	jmp cursor_down
 
-key0_9:	
+key0_9:
 	sec
 	sbc #48
 	sta temp
@@ -499,12 +499,12 @@ enter_file_ram:
 	lda (source_l),y
 	and #%00001111
 	ora temp
-	sta (source_l),y	
+	sta (source_l),y
 	rts
 efr3:	;do right nybble
 	lda (source_l),y
 	and #%11110000
-	ora temp	
+	ora temp
 	sta (source_l),y
 	rts
 
@@ -522,12 +522,12 @@ enter_system_ram:
 	lda (source_l),y
 	and #%00001111
 	ora temp
-	sta (source_l),y	
+	sta (source_l),y
 	rts
 cca3:	;do right nybble
 	lda (source_l),y
 	and #%11110000
-	ora temp	
+	ora temp
 	sta (source_l),y
 	rts
 
@@ -539,7 +539,7 @@ enter_video_ram:
 	sta VERA_ADDR_M
 	lda cursor_x
 	lsr
-	clc	
+	clc
 	adc source_l
 	sta VERA_ADDR_L
 	;Is it left or right nybble?
@@ -555,12 +555,12 @@ enter_video_ram:
 	lda VERA_DATA0
 	and #%00001111
 	ora temp
-	sta VERA_DATA0	
+	sta VERA_DATA0
 	rts
 eva3:	;do right nybble
 	lda VERA_DATA0
 	and #%11110000
-	ora temp	
+	ora temp
 	sta VERA_DATA0
 	rts
 ;This routine will put the left-hand screen value
@@ -575,7 +575,7 @@ calc_current_address:
 	asl source_l
 	rol source_h
 	asl source_l
-	rol source_h	
+	rol source_h
 	lda hex_columns
 	cmp #8
 	beq cca1
@@ -616,7 +616,7 @@ switch_bank:
 swb1:	;toggle VRAM bank
 	lda bank_sel
 	eor #%00000001
-	sta bank_sel	
+	sta bank_sel
 swb9:	;clean up screen after bank switch
 	stz select_active
 	jsr display_status_line
@@ -650,7 +650,7 @@ home:
 	jsr draw_cursor
 	jmp user_input
 
-end:	
+end:
 	jsr erase_cursor
 	lda screen_height
 	sec
@@ -675,7 +675,7 @@ pu01:	jsr render_entire_area
 	jsr draw_cursor
 	jmp user_input
 
-page_down:	
+page_down:
 	jsr calc_full_chart
 	lda top_address_l
 	clc
@@ -688,7 +688,7 @@ page_down:
 	lda max_l
 	sta top_address_l
 	lda max_h
-	sta top_address_h	
+	sta top_address_h
 pd01:	jsr validate_max
 	jsr render_entire_area
 	jsr draw_cursor
@@ -708,7 +708,7 @@ calc_full_chart:
 	asl source_l
 	rol source_h
 	asl source_l
-	rol source_h	
+	rol source_h
 	lda hex_columns
 	cmp #8
 	beq calfu
@@ -735,13 +735,13 @@ nthl:	jsr find_cursor
 ercu2:	;Selection is active, highlight or not?
 	lda source_h
 	cmp select_begin_h  ;Equal to begin
-	bne ercu3	
+	bne ercu3
 	lda source_l
 	cmp select_begin_l
 	beq drhl
 ercu3:	lda source_h
 	cmp select_end_h    ;Equal to end
-	bne ercu4	
+	bne ercu4
 	lda source_l
 	cmp select_end_l
 	beq drhl
@@ -824,7 +824,7 @@ cursor_right:
 crr1:	jmp user_input
 
 scroll_down_one:
-	lda top_address_l	
+	lda top_address_l
 	clc
 	adc hex_columns
 	sta top_address_l
@@ -842,7 +842,7 @@ sdo1:	jsr validate_max
 	jmp user_input
 
 scroll_up_one:
-	lda top_address_l	
+	lda top_address_l
 	sec
 	sbc hex_columns
 	sta top_address_l
@@ -883,7 +883,7 @@ calc_top_from_bottom:
 	sta source_l	;get number of rows
 	stz source_h
 	asl source_l	;multiply by 8
-	rol source_h	
+	rol source_h
 	asl source_l
 	rol source_h
 	asl source_l
@@ -935,7 +935,7 @@ expr4:	cmp #89 ;Y
 	lda #$80
 	jsr setmsg
 	rts
-	
+
 switch_display_mode:
 	lda display_mode
 	cmp #2
@@ -944,7 +944,7 @@ switch_display_mode:
 sdm1:	jsr display_screen_top
 	jsr render_entire_area
 	jsr draw_cursor
-	jmp user_input	
+	jmp user_input
 sdm2:	stz display_mode
 	bra sdm1
 
@@ -965,7 +965,7 @@ rea1:	jsr get_source_data
 	cmp line_render
 	beq rea2
 	jsr inc_address_render
-	jmp rea1	
+	jmp rea1
 rea2:	rts
 
 get_source_data:
@@ -1042,7 +1042,7 @@ gvr1:	lda VERA_DATA0
 	cpy hex_columns
 	bne gvr1
 	rts
-	
+
 inc_address_render:
 	lda address_render_l
 	clc
@@ -1109,7 +1109,7 @@ rsl1b:	inc column_render
 	beq display_screen_codes
 	jmp rsl5
 	;display screen codes
-display_screen_codes:	
+display_screen_codes:
 	stz column_render
 	ldx #$6f ;gray on blue
 rsl2:	ldy column_render
@@ -1117,7 +1117,7 @@ rsl2:	ldy column_render
 	and #%10000000
 	cmp #%10000000
 	bne rsl3
-	lda buffer,y	
+	lda buffer,y
 	and #%01111111
 	sta VERA_DATA0
 	lda #$f6  ;blue on gray (reverse)
@@ -1129,7 +1129,7 @@ rsl3:	lda buffer,y
 rsl4:	inc column_render
 	lda column_render
 	cmp hex_columns
-	bne rsl2	
+	bne rsl2
 	rts
 rsl5:	cmp #1    ;PETSCII
 	beq display_petscii
@@ -1199,9 +1199,9 @@ sic4:	lda select_end_l
 	cmp top_address_l
 	bcc sic0
 sic9:	;Do highlight
-	lda #$f6	
+	lda #$f6
 	sta highlight
-	rts	
+	rts
 
 set_text_color:
 	lda select_active
@@ -1233,7 +1233,7 @@ stc0:	;Check if we've reached begin/end mark
 	;sta highlight
 	lda #1
 	sta after_off
-	bra stc8	
+	bra stc8
 stc1:	lda source_h
 	cmp select_begin_h
 	bne stc8
@@ -1241,7 +1241,7 @@ stc1:	lda source_h
 	lda #$f6        ;highlight off
 	sta highlight
 	stz after_off
-	;jmp stc8		
+	;jmp stc8	
 stc8:	;Set color
 	lda highlight
 	sta text_color
@@ -1289,7 +1289,7 @@ set_hex_columns:
 shc2:	lda #16
 	sta hex_columns
 	rts
-	
+
 display_screen_error:
 	ldx #0
 dse1:	lda screen_error_text,x
@@ -1299,7 +1299,7 @@ dse1:	lda screen_error_text,x
 	inx
 	jmp dse1
 dse2:	rts
-	
+
 screen_error_text:
 	.byte $93,"HEXEDIT REQUIRES AT LEAST 32 COLUMNS!",0
 
@@ -1330,7 +1330,7 @@ dst1:	lda txt_offset,x
 dst2:	jsr display_thin_hexnum
 	inc hexnum
 	lda hexnum
-	cmp hex_columns	
+	cmp hex_columns
 	bne dst2
 	;display divider
 	lda #93
@@ -1365,7 +1365,7 @@ dst4a:	lda #%00010001
 	lda #$b1
 	sta VERA_ADDR_M
 	lda #$00
-	sta VERA_ADDR_L	
+	sta VERA_ADDR_L
 	lda #67
 	ldy #$61	;white on blue
 	ldx #6
@@ -1414,7 +1414,7 @@ display_screen_bottom:
 	adc screen_height
 	sta VERA_ADDR_M
 	lda #$00
-	sta VERA_ADDR_L	
+	sta VERA_ADDR_L
 	lda #67
 	ldy #$61   ;white on blue
 	ldx #6
@@ -1456,7 +1456,7 @@ display_thin_hexnum:
 	sty VERA_DATA0
 	lda hexnum
 	and #%00001111
-	ora #$b0	
+	ora #$b0
 	sta VERA_DATA0
 	sty VERA_DATA0
 	rts
@@ -1487,7 +1487,7 @@ clear_screen:
 	ldy #0
 	lda #%00010001
 	sta VERA_ADDR_H
-csc0:	tya	
+csc0:	tya
 	clc
 	adc #$b0
 	sta VERA_ADDR_M
@@ -1588,7 +1588,7 @@ dsl4:	;Fill in bank
 	lda #36
 	sta VERA_ADDR_L
 	lda data_source
-	cmp #2	
+	cmp #2
 	bcs dsl5
 	lda bank_sel
 	sta hexnum
@@ -1601,7 +1601,7 @@ dsl5:	;file and i2c will display dashes for bank.
 	sty VERA_DATA0
 	sta VERA_DATA0
 	sty VERA_DATA0
-	rts	
+	rts
 
 txt_modes:
 	scrcode "SYSTEM"
@@ -1675,7 +1675,7 @@ goba2:	;check if it is A-F
 	cmp #65   ;A
 	bcc goba3
 	cmp #71   ;F+1
-	bcs goba3	
+	bcs goba3
 	sec
 	sbc #55
 	jmp goba8
@@ -1693,7 +1693,7 @@ goba8:	;process user numbers
 	lda #01   ;white on black
 	sta VERA_DATA0
 	inc temp
-	lda temp	
+	lda temp
 	cmp #2
 	bne goba1
 	lda buffer
@@ -1752,7 +1752,7 @@ goad2:	;check if it is A-F
 	cmp #65   ;A
 	bcc goad3
 	cmp #71   ;F+1
-	bcs goad3	
+	bcs goad3
 	sec
 	sbc #55
 	jmp goad8
@@ -1771,7 +1771,7 @@ goad8:	ldx temp
 	lda #01   ;white on black
 	sta VERA_DATA0
 	inc temp
-	lda temp	
+	lda temp
 	cmp #4
 	bne goad1
 	lda buffer
@@ -1999,7 +1999,7 @@ safi1:	cmp #1  ;vram
 	jmp save_from_vram
 safi2:	jmp save_from_file
 
-save_from_file:	
+save_from_file:
 	;setup source location
 	lda select_begin_l
 	sta source_l
@@ -2067,7 +2067,7 @@ wfdone:	;close the file
 	jsr close            ; (CLOSE) close file
 	jsr clrch            ; (CLRCHN) restore I/O to screen/keyboard
 	jmp save_finish
-	
+
 save_from_vram:
 	;Setup VRAM start location
 	lda #%00010000
@@ -2096,7 +2096,7 @@ save_from_vram:
 	bcc wrloop           ; branch if no error
 	;sta io_error         ; save error code
 	bra wrdone           ; close and exit
-wrloop:	;start writing the bytes to the file	
+wrloop:	;start writing the bytes to the file
 	lda VERA_DATA0
 	jsr bsout            ; (CHROUT) send byte to file
 	lda VERA_ADDR_M
@@ -2112,7 +2112,7 @@ wrloop:	;start writing the bytes to the file
 wrdone:	lda #02              ; LFN
 	jsr close            ; (CLOSE) close file
 	jsr clrch            ; (CLRCHN) restore I/O to screen/keyboard
-	jmp save_finish	
+	jmp save_finish
 
 save_from_system:
 	;ask user about load address
@@ -2211,7 +2211,7 @@ load_to_filemode:
 	jsr setlfs           ;SETLFS A=LOGICAL NUMBER X=DEVICE NUMBER Y=SECONDARY
 	ldx source_l         ;location in vram
 	ldy source_h         ;location in vram
-	lda #0		
+	lda #0	
 	jsr $ffd5            ;LOAD FILE A=0 FOR LOAD X/Y=LOAD ADDRESS
 	lda #$02
 	jsr $ffc3            ;CLOSE FILE
@@ -2239,7 +2239,7 @@ load_to_vram:
 	lda #$02
 	jsr close            ;CLOSE FILE
 	jmp load_file_finish
-	
+
 load_to_system:
 	jsr ask_load_address
 	;grab address of cursor
@@ -2346,7 +2346,7 @@ fnbs1:	;filename backspace
 	dec VERA_ADDR_L
 	dec VERA_ADDR_L
 	jmp fnin3
-	
+
 change_drive_number:
 	stz filename_length
 	lda #<txt_drive_number
@@ -2428,7 +2428,7 @@ display_dos_status:
 	;setup VERA registers for next part
 	lda #26
 	sta VERA_ADDR_L
-	;read status channel of disk drive	
+	;read status channel of disk drive
 	lda #$ff       ; A=-1
 	;sta dos_error ; set DOS error
 	sta hexnum     ; set I/O error
@@ -2487,9 +2487,9 @@ cmdcl:	;Command close
 err:	;NOW WAIT FOR KEYPRESS
 	jsr getin
 	cmp #0
-	beq err	
+	beq err
 	rts            ; return
-	
+
 
 display_error:
 	lda source_l

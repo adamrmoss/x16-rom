@@ -45,7 +45,7 @@ GRAPH_put_char:
 	PopW r6
 	PopW r2
 	rts
-		
+	
 put_char:
 	cmp #$20
 	bcs @1
@@ -196,7 +196,7 @@ control_swap_col:
 control_underline:
 	smbf UNDERLINE_BIT, currentMode
 	rts
-	
+
 control_bold:
 	smbf BOLD_BIT, currentMode
 	rts

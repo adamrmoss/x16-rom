@@ -62,6 +62,6 @@ screen_scroll_up_delay_done: ; entry point for cursor move control codes
 	bit LDTBL+0
 	bpl screen_scroll_up
 
- 	; Recalculate PNT and USER
+    ; Recalculate PNT and USER
 
 	jmp screen_calculate_PNT_USER

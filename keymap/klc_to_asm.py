@@ -15,7 +15,7 @@ def get_kbd_layout(base_filename, load_patch = False):
 	lines = f.readlines()
 	f.close()
 	lines = [x.strip() for x in lines]
-	
+
 	if (load_patch and os.path.isfile(filename_changes)):
 		f = io.open(filename_changes, mode="r", encoding="utf-8")
 		lines_changes = f.readlines()
@@ -23,9 +23,9 @@ def get_kbd_layout(base_filename, load_patch = False):
 		lines_changes = [x.strip() for x in lines_changes]
 	else:
 		lines_changes = []
-	
+
 	keywords = [ 'KBD', 'COPYRIGHT', 'COMPANY', 'LOCALENAME', 'LOCALEID', 'VERSION', 'SHIFTSTATE', 'LAYOUT', 'DEADKEY', 'LIGATURE', 'KEYNAME', 'KEYNAME_EXT', 'KEYNAME_DEAD', 'DESCRIPTIONS', 'LANGUAGENAMES', 'ENDKBD' ]
-	
+
 	sections = []
 	section = []
 	while len(lines) > 0:
@@ -47,7 +47,7 @@ def get_kbd_layout(base_filename, load_patch = False):
 				sections.append(section)
 			section = []
 		section.append(fields)
-		
+	
 	section_changes = []
 	while len(lines_changes) > 0:
 		line = lines_changes[0]
@@ -142,22 +142,22 @@ def get_kbd_layout(base_filename, load_patch = False):
 				kbd_layout['all_deadkey_reachable_characters'] += res_c
 		elif fields[0] == 'LIGATURE':
 			# TODO
-			pass	
+			pass
 		elif fields[0] == 'KEYNAME':
 			# TODO
-			pass	
+			pass
 		elif fields[0] == 'KEYNAME_EXT':
 			# TODO
-			pass	
+			pass
 		elif fields[0] == 'KEYNAME_DEAD':
 			# TODO
-			pass	
+			pass
 		elif fields[0] == 'DESCRIPTIONS':
 			# TODO
-			pass	
+			pass
 		elif fields[0] == 'LANGUAGENAMES':
 			# TODO
-			pass	
+			pass
 
 	return kbd_layout
 
@@ -251,12 +251,12 @@ def latin15_from_unicode(c):
 			return chr(0);
 		else:
 			return c
-	
+
 	# Latin-15 supports some other Unicode characters
 	if ord(c) in latin15_from_unicode_tab:
 		return chr(latin15_from_unicode_tab[ord(c)])
-	
-	# all other characters are unsupported		
+
+	# all other characters are unsupported	
 	return chr(0)
 
 def unicode_from_latin15(c):
@@ -444,7 +444,7 @@ for iso_mode in [False, True]:
 		keytab[shiftstate][104] = '.'
 		keytab[shiftstate][95] = '/'
 		keytab[shiftstate][108] = chr(0x0d) # CR
-	
+
 	# stamp in Ctrl/Alt color codes
 	petscii_from_ctrl_scancode = [ # Ctrl
 		(2, 0x90),    # '1'

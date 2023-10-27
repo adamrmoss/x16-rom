@@ -65,7 +65,7 @@ cursor_undraw:
 	jsr screen_set_char
 	lda GDCOL
 	jsr screen_set_color
-	
+
 	lda #0
 	sta BLNON
 

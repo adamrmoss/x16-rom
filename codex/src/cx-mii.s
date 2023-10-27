@@ -14,7 +14,7 @@
 	;; this list of conditions and the following disclaimer in the documentation
 	;; and/or other materials provided with the distribution.
 	;; 
-	;;	
+	;;
 	;;    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	;; "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	;; LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -48,21 +48,21 @@
 	STACK_COL = SIDE_BAR_X + DBG_BOX_WIDTH
 	STACK_ROW = DATA_ROW
 	STACK_BOX_HEIGHT = 20
-	
+
 	REGISTER_COL = SIDE_BAR_X + 6
 	REGISTER_ROW = STACK_ROW
 	REGISTER_BOX_HEIGHT = 20
-	
+
 	PSR_COL = SIDE_BAR_X
 	PSR_ROW = REGISTER_ROW + REGISTER_BOX_HEIGHT 
 	PSR_BOX_HEIGHT = 15
 	PSR_BOX_WIDTH = 15
-	
+
 	WATCH_COL = SIDE_BAR_X
 	WATCH_ROW = PSR_ROW + PSR_BOX_HEIGHT 
 	WATCH_BOX_HEIGHT = 20
 	WATCH_BOX_WIDTH = DBG_BOX_WIDTH + DBG2_BOX_WIDTH
-	
+
 	VERA_COL = PSR_COL + PSR_BOX_WIDTH
 	VERA_ROW = PSR_ROW
 	VERA_BOX_WIDTH = 15
@@ -76,13 +76,13 @@
 ;;      R3 - Parameters, saved in routines
 ;;      R4 - Parameters, saved in routines
 ;;      R5 - Parameters, saved in routines
-	
+
 ;;      R6
 ;;      R7
 ;;      R8
 ;;      R9
 ;;      R10 - decoded_str
-	
+
 ;;      R11 - scratch, not saved
 ;;      R12 - scratch, not saved
 ;;      R13 - scratch, not saved
@@ -94,7 +94,7 @@
 ;;      x18
 ;;      x19
 ;;      x20
-	
+
 	.code
 	             
 	.include "bank.inc"
@@ -114,7 +114,7 @@
 	.include "decoder_vars.inc"
 	.include "encode_vars.inc"
 	.include "cx_vars.inc"
-	
+
 	.include "decoder.inc"
 	.include "dispatch.inc"
 	.include "meta.inc"
@@ -136,13 +136,13 @@
 	.code
 
 	.export main_entry
-	
+
 main_entry: 
 	lda     orig_color
 	sta     K_TEXT_COLOR
 
 	jsr     clear_content
-	
+
 	LoadW   r4,meta_i_entry_0
 
 	ldy     #4
@@ -150,7 +150,7 @@ main_entry:
 	ldx     #HDR_COL
 	jsr     vera_goto_xy
 	phy
-	
+
 	aejsr   vec_meta_expr_iter_next
 	lda     r11H
 	and     r11L
@@ -175,28 +175,28 @@ main_entry:
 	sta     r4L
 	bcc     :+
 	inc     r4H
-	
+
 :
 	iny
 	cpy     #ROW_MAX
 	bmi     @expr_row
 
-@expr_loop_exit	
+@expr_loop_exit
 	ply
 	LoadW   r1,str_done
 	jsr     wait_for_keypress
 
 	clc
 	rts
-	
+
 str_done:   .byte "PRESS ANY KEY TO CONTINUE: ", 0
 
 ;;; -------------------------------------------------------------------------------------
 	.code
-	
+
 ;; Strings and display things
-	
-	
+
+
 ;;
 ;; Print a decomposed expression enum
 ;;
@@ -213,7 +213,7 @@ prt_expr_enum
 	asl
 	tax
 	jmp     (mii_pseudo_arg_dispatch,x)
-	
+
 mii_pseudo_arg_dispatch
 	.word mii_pseudo_none      ; 0
 	.word mii_pseudo_hi_byte   ; 1
@@ -230,19 +230,19 @@ str_byte        .byte    ".BYTE  ", 0
 str_word        .byte    ".WORD  ", 0
 str_pstr        .byte    ".PSTR  ", 0
 str_cstr        .byte    ".CSTR  ", 0
-	
-;;	
+
+;;
 mii_pseudo_hi_byte
 	callR1   prtstr,str_high_byte
-	
+
 	ldx     r13H
 	jsr     prthex
 	ldx     r13L
 	jsr     prthex
 
 	rts
-	
-;;	
+
+;;
 mii_pseudo_lo_byte
 	callR1   prtstr,str_low_byte
 
@@ -252,31 +252,31 @@ mii_pseudo_lo_byte
 	jsr     prthex
 
 	rts
-	
-;;	
+
+;;
 mii_pseudo_byte
 	callR1   prtstr,str_byte
-	
+
 	ldx     r13L
 	jsr     prthex
 
 	rts
-	
-;;	
+
+;;
 mii_pseudo_word
 	callR1   prtstr,str_word
-	
+
 	ldx     r13H
 	jsr     prthex
 	ldx     r13L
 	jsr     prthex
 
 	rts
-	
-;;	
+
+;;
 mii_pseudo_pstr
 	callR1   prtstr,str_pstr
-	
+
 	charOut $1B
 	charOut '$'
 	lda     (r4)
@@ -298,11 +298,11 @@ mii_pseudo_pstr
 	charOut $22
 
 	rts
-	
-;;	
+
+;;
 mii_pseudo_cstr
 	callR1   prtstr,str_cstr
-	
+
 	charOut $1B
 	charOut '$'
 	ldx     r13H
@@ -325,11 +325,11 @@ mii_pseudo_cstr
 	charOut $22
 
 	rts
-	
-;;	
+
+;;
 mii_pseudo_none
 	callR1   prtstr,str_unknown
-	
+
 	ldx     r13H
 	jsr     prthex
 	ldx     r13L
@@ -351,14 +351,14 @@ wait_for_keypress
 	kerjsr   GETIN
 	beq      wait_for_keypress
 	rts
-;;	
+;;
 ;;	Clear the area under the header
-;;	
+;;
 clear_content
 	vgotoXY 0,HDR_ROW+3
 	ldx     #80
 	ldy     #57
 	jsr     erase_box
 	rts
-	
+
 	.endproc

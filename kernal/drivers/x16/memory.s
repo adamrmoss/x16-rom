@@ -127,7 +127,7 @@ ramtas:
 
 @memtest2:
 	stz ram_bank	;restore value in 00:a000
-	dex		
+	dex	
 	stx $a000
 
 	ldx #1		;start testing from bank 1

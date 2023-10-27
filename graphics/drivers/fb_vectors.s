@@ -61,7 +61,7 @@ I_FB_filter_pixels:
 I_FB_move_pixels:
 	.res 2
 I_FB_END:
-	
+
 
 .segment "GRAPH"
 

@@ -224,7 +224,7 @@ combinedbitz:
 
 decompression_done:
 	lda r1H
-	cmp #IO_PAGE			
+	cmp #IO_PAGE		
 	bne dont_restore_io
 	lda #1                          ; we've decompressed to I/O - restore VERA state
 	sta VERA_CTRL                   ; switch to data port 1
@@ -260,8 +260,8 @@ getput:
 	jsr getsrc
 putdst:
 	sta (r1) 	; Store in RAM or I/O area
- 	lda r1H
-	cmp #IO_PAGE			
+    lda r1H
+	cmp #IO_PAGE		
 	beq @done 		; we're in I/O, assume device auto-increments
 	inc r1L
 	beq :+
@@ -270,10 +270,10 @@ putdst:
 @done:
 	rts
 
-add_match_offset:	
+add_match_offset:
 	lda r1H
-	cmp #IO_PAGE			
-	beq add_match_offset_io	; dispatch RAM vs. I/O			
+	cmp #IO_PAGE		
+	beq add_match_offset_io	; dispatch RAM vs. I/O		
 
 add_match_offset_ram:
 	clc  
@@ -295,7 +295,7 @@ add_match_offset_io:
 	adc VERA_ADDR_M
 	sta r2H
 	lda VERA_ADDR_H			; 17th bit in 
-	adc #1				
+	adc #1			
 	sec
 
 	inc VERA_CTRL			; switch to port 1 - this is the port we'll read from
@@ -309,8 +309,8 @@ add_match_offset_io:
 
 copy_backreference:
 	lda r1H
-	cmp #IO_PAGE			
-	beq copy_backreference_io ; dispatch RAM vs. I/O			
+	cmp #IO_PAGE		
+	beq copy_backreference_io ; dispatch RAM vs. I/O		
 
 copy_backreference_ram:
 	lda (r2)			; get one byte of backreference
@@ -331,8 +331,8 @@ copy_backreference_io:
 	; pump address register to ensure vera data 1 has the right value
 	; only needed on overlapping memory copies that are 1 byte apart
 	; but these happen often when decompressing, so we have to be on the safe side here
-	lda VERA_ADDR_L					
-	sta VERA_ADDR_L					
+	lda VERA_ADDR_L				
+	sta VERA_ADDR_L				
 	rts
 
 getlargesrc:

@@ -266,7 +266,7 @@ _kbd_scan:
 :	jsr joystick_from_ps2
 
 	; Is it a modifier key?
- 	pha			; Save key code on stack
+    pha			; Save key code on stack
 	and #%01111111		; Clear up/down bit
 	ldx #0
 :	cmp modifier_key_codes,x
@@ -318,7 +318,7 @@ is_reg_key:
 	; Pause/break key?
 	cmp #KEYCODE_PAUSEBRK
 	bne :+
-	
+
 	ldx #$03 * 2 ; stop (-> run)
 	lda shflag
 	lsr ; shift -> C

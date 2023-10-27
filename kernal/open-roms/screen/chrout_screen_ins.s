@@ -10,7 +10,7 @@
 chrout_screen_INS:
 
 	; First check if last character of the logical line is space
-	
+
 	jsr screen_check_space_ends_line
 	beq chrout_screen_ins_possible
 
@@ -36,7 +36,7 @@ chrout_screen_ins_possible:
 	jsr screen_set_char
 
 	; If line does not end with space now, try to grow the logical line
-	
+
 	jsr screen_check_space_ends_line
 	beq chrout_screen_ins_done
 	jsr screen_grow_logical_line

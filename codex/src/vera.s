@@ -7,7 +7,7 @@
 
 	.psc02                    ; Enable 65c02 instructions
 	.feature labels_without_colons
-	
+
 	VERA_ADDR_LO=$9F20
 	VERA_ADDR_MID=$9F21
 	VERA_ADDR_HI=$9F22
@@ -16,11 +16,11 @@
 	VERA_CTRL=$9F25
 	VERA_IEN=$9F26
 	VERA_ISR=$9F27
-	
+
 	VERA_CTRL_SEL=$00
 
 	.export vera_out_a, vera_goto_xy, vera_goto, VERA_DATA0, VERA_DATA1, VERA_ADDR_LO, VERA_ADDR_MID, VERA_ADDR_HI
-	
+
 	.include "kvars.inc"
 	.include "x16_kernal.inc"
 	.include "screen_vars.inc"

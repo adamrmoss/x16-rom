@@ -10,5 +10,5 @@
 
 	.import encode_pc, encode_buffer_size, encode_dry_run, encode_buffer
 	.importzp ENCODE_BUFFER_MAX
-	
+
 	.endif

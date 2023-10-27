@@ -14,7 +14,7 @@
 ;
 
 .include "io.inc" 
-	
+
 .export notecon_fm2bas
 .export notecon_psg2bas
 .export notecon_midi2bas
@@ -81,7 +81,7 @@ error:
 error:
 	jmp return_error
 .endproc
-	
+
 .proc notecon_bas2psg: near
 	; inputs: .X = BASIC oct/note (also process .Y as KF)
 	; clobbers: .A

@@ -72,7 +72,7 @@ open_has_space:
 	bcc_16 open_iec
 
 .endif
-	
+
 	; FALLTROUGH
 
 open_done_success:

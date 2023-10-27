@@ -22,13 +22,13 @@
 opn232:
 	clc
 	rts
-	
+
 ;CLOSE
 ;
 cls232:
 	clc
 	rts
-	
+
 ;CKOUT
 ;
 cko232:

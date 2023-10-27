@@ -245,7 +245,7 @@ monitor:
 	lda #>brk_entry
 	sta cbinv + 1 ; BRK vector
 	plp
-	
+
 	bra brk_entry2
 
 .segment "monitor_ram_code"
@@ -289,7 +289,7 @@ brk_entry2:
 	sta reg_x
 	pla
 	; dummy A
-	
+
 	; pull off RTI style return (which includes fake P flags)
 	pla
 	pla

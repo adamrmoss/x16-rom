@@ -21,7 +21,7 @@
 	.include "screen.inc"
 	.include "utility.inc"
 	.include "x16_kernal.inc"
-	
+
 ;;
 ;; Clear watch variables
 ;; 
@@ -53,7 +53,7 @@ meta_clear_watches
 ;;
 meta_clear_meta_data
 	pushBankVar bank_meta_l
-	
+
 	LoadW    TMP1,meta_data
 	LoadW    TMP2,label_init_constant
 
@@ -110,7 +110,7 @@ meta_get_region
 	MoveW         meta_rgn_end,r1
 	popBank
 	rts
-	
+
 ;;
 ;; Find a label
 ;; Input  - r1 == value being searched for
@@ -188,11 +188,11 @@ meta_find_label_entry
 	inc     M1H
 	jmp     @find_label_entry_loop
 
-;;	
+;;
 ;;	Get a label pointed to by r4
 ;; Output - r0 ptr to label string
 ;;        - r1 label value
-;;	
+;;
 meta_get_label
 	pushBankVar bank_meta_l
 	ldy         #0      
@@ -202,7 +202,7 @@ meta_get_label
 	lda         (r4),y
 	sta         r0H
 	iny
-	
+
 	lda         (r4),y
 	sta         r1L  
 	iny
@@ -215,13 +215,13 @@ meta_get_label
 	LoadW       r2,code_buffer
 	jsr         util_strcpy
 	PopW        r2
-	
+
 	LoadW       r1,code_buffer
-	
+
 @meta_get_label_exit
 	popBank
 	rts
-	
+
 ;;
 ;; print_banked_label
 ;; Print the label, pointed to by r1, in bank_meta_l
@@ -244,7 +244,7 @@ meta_add_label
 	PushW  r2
 	PushW  r1
 	PushW  r1       ; Will use it in find step 2
-	
+
 	;; Do two label existance checks
 	;; 1) Look for same value
 	;; 2) Look for same string
@@ -259,7 +259,7 @@ meta_add_label
 	jsr  meta_lookup_label
 	bne  @meta_add_label_not_found
 	jmp  @meta_add_label_exists_error
-	
+
 @meta_add_label_not_found
 	;; Scan the table looking for the insert point
 	LoadW   M1,label_data_start
@@ -270,7 +270,7 @@ meta_add_label
 	iny
 	ora    (M1),y
 	bne    @meta_add_scan_chk2
-	
+
 	;; Pre terminate
 	lda    #0
 	iny
@@ -432,7 +432,7 @@ meta_delete_label
 	sta     r1L
 	lda     M1H
 	sta     r1H                        ; r1 == dst
-	
+
 	;; src = M1 + 4
 	sta     r0H
 	clc
@@ -442,7 +442,7 @@ meta_delete_label
 	bcc     :+
 	inc     r0H                        ; r0 == src
 :  
-	
+
 	;; byte count = end_addr - dst (includes guard bytes)
 	lda     label_end_addr
 	sec
@@ -563,7 +563,7 @@ meta_append_string_to_heap
 	sty    r15L
 	stx    r15H
 	IncW   r15           ; Account for terminating NUL
-	
+
 	;; r1 = meta_str_addr (top of heap) - string size
 	sec
 	lda    meta_str_addr
@@ -575,7 +575,7 @@ meta_append_string_to_heap
 
 	jsr    util_strcpy
 	rts
-	
+
 inst_init_constant
 	.byte   "CDF04",0
 	.word   $a00d           ;; initial count
@@ -583,7 +583,7 @@ inst_init_constant
 	.byte   META_FN_NONE    ;; FN end tag
 	.word   $FFFF           ;; value end tag
 inst_init_constant_end
-	
+
 label_init_constant
 	.byte   "CDF04",0       ;; Tag
 	.word   $8000           ;; Region start
@@ -657,7 +657,7 @@ meta_relocate_labels
 	iny
 	ora      (TMP1),y
 	beq      @meta_relocate_loop_exit
-	
+
 	lda      TMP1L
 	clc
 	adc      #4

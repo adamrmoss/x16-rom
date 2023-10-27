@@ -7,12 +7,12 @@
 
 	.psc02                    ; Enable 65c02 instructions
 	.feature labels_without_colons
-	
+
 	.include "x16_kernal.inc"
-	
+
 	.export util_trim_string, util_strcpy, util_strcmp, util_parse_hex
 	.export util_ends_with, util_split_string, util_str_contains, util_strlen
-	
+
 ;;
 ;; Trim string - Remove leading and trailing whitespace
 ;; Input r1 - String
@@ -140,10 +140,10 @@ util_strlen
 	inx
 	inc   r1H
 	bra   @util_strlen_loop
-	
+
 @util_strlen_exit
 	rts
-	
+
 ;;
 ;; Convert string to hex, assumes a trimmed string
 ;;
@@ -160,7 +160,7 @@ util_parse_hex
 
 	lda     (r1)
 	beq     @util_parse_hex_error_exit
-	
+
 @util_parse_loop
 	lda     (r1),y
 	beq     @util_parse_hex_exit
